@@ -1,12 +1,31 @@
 {
   "name": "stockcard(web)",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "main": "scrape.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "cheerio": "^1.0.0-rc.12",
+    "puppeteer": "^19.5.0",
+    "request": "^2.88.2",
+    "request-promise": "^4.2.6",
+    "require": "^2.4.20"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/susumOyaji/stockcard-web-.git"
+  },
+  "bugs": {
+    "url": "https://github.com/susumOyaji/stockcard-web-/issues"
+  },
+  "homepage": "https://github.com/susumOyaji/stockcard-web-#readme",
+  "description": "",
+  "devDependencies": {
+    "jsdom": "^21.0.0",
+    "node-fetch": "^3.3.0"
+  }
 }

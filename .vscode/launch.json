@@ -14,11 +14,14 @@
             ],
             "type": "node"
         },
-        {
-            "type": "chrome",
+       {
+            "type": "node",
             "request": "launch",
-            "name": "Open index.html",
-            "file": "/Users/sumitomoshigeru/GitHub/stockcard(web)/index.html"
+            "name": "node Launch Program",
+            "skipFiles": [
+                "<node_internals>/**"
+            ],
+            "program": "${workspaceFolder}\\scrape.js"
         }
     ]
 }

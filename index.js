@@ -79,49 +79,20 @@ var db;
 
 
         async function _getdowhtmls() {
-            const dow = [];
-            const newurl = "https://finance.yahoo.co.jp/quote/%5EDJI";
+            const puppeteer = require("puppeteer");
 
-            //const response = new URL(newurl);
-            //console.log(response.body);
-            var https = require(newurl);
-            //location.assign(newurl)
-            //window.location.href = newurl
-            //const json = JSON.parse(response);
+            (async () => {
+              const browser = await puppeteer.launch();
+              const page = await browser.newPage();
+              await page.goto("https://example.com");
             
-            return dow;
-           
-         
-            /*
-            RegExp changePriceRate = RegExp(r'<span class="_3BGK5SVf">.*?</span>');
-        
-            List<String?> changepriceRate = changePriceRate
-                .allMatches(json)
-                .map((match) => match.group(0))
-                .toList();
-            //.cast();
-        
-            List<String> tmp = [];
-            for (int i = 0; i < changepriceRate.length; i++) {
-              tmp.add(changepriceRate[i]!.replaceAll(RegExp("_3BGK5SVf"), ""));
-            }
-        
-            for (int i = 0; i < 3; i++) {
-              dow.add(tmp[i].replaceAll(RegExp("[^-+0-9,.]"), ""));
-            }
-        
-            RegExp regpola = RegExp(r'<span class="_3HWBPedk"><span>.*?</span>'); //前日比
-            List<String> pola =
-                regpola.allMatches(json).map((match) => match.group(0)).toList().cast();
-            String sig = pola[0].replaceAll(RegExp("[^-+]"), "");
-            dow[1] = sig + dow[1];
-            dow[2] = sig + dow[2];
-            RegExp ing = RegExp(r'\+');
-            String sigpola = ing.hasMatch(sig).toString();
-            dow.add(sigpola);
-        
-            print("Return Dow: $dow");
-            */
+              const result = await page.evaluate(() => {
+                return [...document.querySelectorAll(".target")]
+                  .map(e => e.innerText);
+              });
+            
+              await browser.close();
+            })();
             
         }
 
