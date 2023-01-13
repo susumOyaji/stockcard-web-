@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Fetch APIでテキストファイルを読み込む | GRAYCODE JavaScript</title>
+	<link rel="shortcut icon" href="https://gray-code.com/wp-content/themes/graycode/assets/images/favicon.ico">
+	<link rel="icon" type="image/vnd.microsoft.icon"
+		href="https://gray-code.com/wp-content/themes/graycode/assets/images/favicon.ico">
+	<!-- Global site tag (gtag.js) - Google Analytics -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-48118163-1"></script>
+	<a onClick="videoDownload('http://[ダウンロードさせたいファイルのURL]')"></a>
+	<script>
+		window.dataLayer = window.dataLayer || [];
+		function gtag() { dataLayer.push(arguments); }
+		gtag('js', new Date());
+
+		gtag('config', 'UA-48118163-1');
+	</script>
+	<script type="application/javascript">
+		window.addEventListener('DOMContentLoaded', async function () {
+			fetch("yahoo.html", {
+				method: 'GET', headers: {
+					"Access-Control-Allow-Origin": "*",
+					"Content-Type": "text/plain"
+				},
+			}) // (1) リクエスト送信
+				.then(response => response.text()) // (2) レスポンスデータを取得
+				.then(data => { // (3)レスポンスデータを処理
+
+					const parser = new DOMParser();
+					const html = parser.parseFromString(data, "text/html");
+
+					const p_elements = html.querySelectorAll('span');
+					const file_area = document.getElementById("file_area");
+					const resultRows = [];
+					const i=0;
+					for (let p of p_elements) {
+						file_area.appendChild(p);
+						console.log(p.textContent);
+						
+					}
+
+				});
+
+			
+				
+
+
+
+		});
+	</script>
+	<style>
+		body {
+			background-color: #fff;
+		}
+
+		#file_area {
+			padding: 20px;
+			border: 4px solid #4a93cb;
+		}
+
+		#file_area img,
+		#file_area video {
+			width: 100%;
+			max-width: 200px;
+			height: auto;
+		}
+	</style>
+</head>
+
+<body>
+	<article id="content1">
+		<h1>JavaScriptレシピ</h1>
+		<p>Fetch APIでテキストファイル「test.txt」を読み込むデモ</p>
+		<div id="file_area"></div>
+	</article>
+</body>
+
+</html>
