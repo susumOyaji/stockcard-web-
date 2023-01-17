@@ -6,7 +6,7 @@
     "configurations": [
         {
             "name": "Launch Program",
-            "program": "${workspaceFolder}/HeadLes.js",
+            "program": "${workspaceFolder}/hello.js",
             "request": "launch",
             "skipFiles": [
                 "<node_internals>/**"
