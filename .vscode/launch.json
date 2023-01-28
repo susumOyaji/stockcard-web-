@@ -6,7 +6,11 @@
     "configurations": [
         {
             "name": "Launch Program",
+<<<<<<< HEAD
             "program": "${workspaceFolder}/node.html",
+=======
+            "program": "${workspaceFolder}/hello.js",
+>>>>>>> 594593ed465fca4f2b0e2b510dddba5452fcbf3f
             "request": "launch",
             "skipFiles": [
                 "<node_internals>/**"
