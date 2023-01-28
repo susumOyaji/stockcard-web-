@@ -6,7 +6,7 @@
     "configurations": [
         {
             "name": "Launch Program",
-            "program": "${workspaceFolder}/index.js",
+            "program": "${workspaceFolder}/node.html",
             "request": "launch",
             "skipFiles": [
                 "<node_internals>/**"
@@ -60,8 +60,25 @@
             "type": "chrome",
             "name": "http://127.0.0.1:3000/TestIndex.html",
             "request": "launch",
-            "url": "http://127.0.0.1:3000/TestIndex.html",
-          
+            "url": "http://127.0.0.1:3000/TestIndex.html"
+        },
+        {
+            "type": "chrome",
+            "name": "http://127.0.0.1:3000/test.html",
+            "request": "launch",
+            "url": "http://127.0.0.1:3000/test.html"
+        },
+        {
+            "type": "chrome",
+            "name": "http://127.0.0.1:3000/index.html",
+            "request": "launch",
+            "url": "http://127.0.0.1:3000/index.html"
+        },
+        {
+            "type": "chrome",
+            "name": "http://127.0.0.1:3000/1.html",
+            "request": "launch",
+            "url": "http://127.0.0.1:3000/1.html"
         }
     ],
     "compounds": [
