@@ -15,7 +15,11 @@
         },
         {
             "name": "Launch Program",
+<<<<<<< HEAD
+            "program": "${workspaceFolder}/node.html",
+=======
             "program": "${workspaceFolder}/hello.js",
+>>>>>>> 594593ed465fca4f2b0e2b510dddba5452fcbf3f
             "request": "launch",
             "skipFiles": [
                 "<node_internals>/**"
@@ -71,12 +75,32 @@
             "request": "launch",
             "url": "http://127.0.0.1:3000/TestIndex.html"
         },
+<<<<<<< HEAD
         
         {
             "type": "msedge",
             "name": "http://127.0.0.1:3000/test.html",
             "request": "launch",
             "url": "http://127.0.0.1:3000/test.html"
+=======
+        {
+            "type": "chrome",
+            "name": "http://127.0.0.1:3000/test.html",
+            "request": "launch",
+            "url": "http://127.0.0.1:3000/test.html"
+        },
+        {
+            "type": "chrome",
+            "name": "http://127.0.0.1:3000/index.html",
+            "request": "launch",
+            "url": "http://127.0.0.1:3000/index.html"
+        },
+        {
+            "type": "chrome",
+            "name": "http://127.0.0.1:3000/1.html",
+            "request": "launch",
+            "url": "http://127.0.0.1:3000/1.html"
+>>>>>>> 81b3a4701f43c9c251fb7a9263394cb0baee58c2
         }
     ],
     "compounds": [
