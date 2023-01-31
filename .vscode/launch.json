@@ -5,6 +5,15 @@
     "version": "0.2.0",
     "configurations": [
         {
+            "type": "j",
+            "request": "launch",
+            "name": "test.htmlプログラムの起動",
+            "skipFiles": [
+                "<node_internals>/**"
+            ],
+            "program": "${workspaceFolder}/test.js"
+        },
+        {
             "name": "Launch Program",
             "program": "${workspaceFolder}/hello.js",
             "request": "launch",
@@ -60,8 +69,14 @@
             "type": "chrome",
             "name": "http://127.0.0.1:3000/TestIndex.html",
             "request": "launch",
-            "url": "http://127.0.0.1:3000/TestIndex.html",
-          
+            "url": "http://127.0.0.1:3000/TestIndex.html"
+        },
+        
+        {
+            "type": "msedge",
+            "name": "http://127.0.0.1:3000/test.html",
+            "request": "launch",
+            "url": "http://127.0.0.1:3000/test.html"
         }
     ],
     "compounds": [
