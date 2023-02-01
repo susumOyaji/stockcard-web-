@@ -23,15 +23,19 @@
     <div id="dey"></div>
 
     <div class="average_container">
-        <div>Dow Price:$&nbsp;</div>
-        <div id="dow-container"></div>
-        <br>
-        <a><span></span>The day before reshio:$&nbsp;</a>
-        <div id="name-container"></div>
-        <div id="price-container"></div>
-        <div id="reshio-container"></div>
-        <div id="percent-container"></div>
-        <div id="polarity-container"></div>
+        <div class="icon">
+            <label>ICON</label>
+        </div>
+        <div class="Price-container">
+            <label class="dow_circle"></label>
+            <label>Dow Price:$&nbsp;</label>
+            <label id="dow-container"></label>
+            <br>
+            <a><span></span>The day before reshio:$&nbsp;</a>
+
+            <label id="reshio-container"></label>
+
+        </div>
     </div>
 
 
@@ -44,11 +48,11 @@
                     // id="todo-container"要素を取得する
                     const todoContainer = document.querySelector('#todo-container');
                     const dowContainer = document.querySelector('#dow-container');
-                    const nameContainer = document.querySelector('#name-container');
-                    const priceContainer = document.querySelector('#price-container');
+                    //const nameContainer = document.querySelector('#name-container');
+                    //const priceContainer = document.querySelector('#price-container');
                     const reshioContainer = document.querySelector('#reshio-container');
-                    const percentContainer = document.querySelector('#percent-container');
-                    const polarityContainer = document.querySelector('#polarity-container');
+                    //const percentContainer = document.querySelector('#percent-container');
+                    //const polarityContainer = document.querySelector('#polarity-container');
 
                     // コンテナの中身を全部消す
                     todoContainer.innerHTML = '';
@@ -73,7 +77,7 @@
                     */
                     // TODOリストにリスト要素を追加する
                     //todoContainer.appendChild(li);
-                   
+
 
                     //nameContainer.innerHTML = stock[1].Name;
                     //priceContainer.innerHTML = stock[1].Price;
@@ -82,11 +86,20 @@
                     //polarityContainer.innerHTML = stock[1].Polarity;
 
 
-                   
-                    dowContainer.innerHTML=stock[0].Price;
 
+                    dowContainer.innerHTML = stock[0].Price;
+                    reshioContainer.innerHTML = stock[0].Reshio + "&nbsp" + stock[0].Percent;
+
+                    stock[0].Polarity == "+" ? change = "red" : change = "green";
+                    document.getElementsByClassName("dow_circle")[0].style.background = change;
+                    document.getElementById("reshio-container").style.color = change;
 
                     //}
+                })
+                .catch((error) => {
+                    //alert("エラーが発生しました");
+                    dowContainer.innerHTML="エラーが発生しました";
+                    console.error(`[FetchAPI] ${error}, ${URL}`);
                 });
 
         };
