@@ -9,7 +9,7 @@ app.use(express.static('03_render_json/web'));
 
 // http://localhost:3000/api/v1/list にアクセスしてきたときに
 // TODOリストを返す
-app.get( (req, res) => {
+app.get('/api/v1/list', (req, res) => {
     // クライアントに送るJSONデータ
     const todoList = [
         { title: 'JavaScriptを勉強する', done: true },
@@ -17,8 +17,13 @@ app.get( (req, res) => {
         { title: 'Web APIを作る', done: false }
     ];
 
+    const stock =[
+        { Name: 'NIKEI', Price: '10', Reshio: '20', Percent: '30', Polarity: '+' }];
+
+    console.log(stock);    
     // JSONを送信する
-    res.json(todoList);
+    //res.json(todoList);
+    res.json(stock);
 });
 
 // ポート3000でサーバを立てる

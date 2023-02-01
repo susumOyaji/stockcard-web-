@@ -2,9 +2,11 @@
 <html lang="ja">
 
 <head>
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>TODOリスト</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width" />
+    <link rel="shortcut icon" href="data:image/x-icon;," type="image/x-icon">
+    <link rel="stylesheet" type="text/css" href="index.css" />
+    <title>StockCard</title>
     <style>
         html {
             background-color: rgb(240, 240, 240);
@@ -13,43 +15,105 @@
 </head>
 
 <body>
-	<h1>TODO List</h1>
+    <h1>StockCard</h1>
     <div>
         <ul id="todo-container"></ul>
     </div>
 
+    <div id="dey"></div>
+
+    <div class="average_container">
+        <div>Dow Price:$&nbsp;</div>
+        <div id="dow-container"></div>
+
+        <div id="name-container"></div>
+        <div id="price-container"></div>
+        <div id="reshio-container"></div>
+        <div id="percent-container"></div>
+        <div id="polarity-container"></div>
+    </div>
+
+
     <script>
-        // APIからJSONを取得する
-        fetch('./index.js')
-            .then((response) => response.json())
-            .then((todoList) => {
-                // id="todo-container"要素を取得する
-                const todoContainer = document.querySelector('#todo-container');
+        function Re_fetch() {
+            // APIからJSONを取得する
+            fetch('./api/v1/list')
+                .then((response) => response.json())
+                .then((stock) => {
+                    // id="todo-container"要素を取得する
+                    const todoContainer = document.querySelector('#todo-container');
+                    const dowContainer = document.querySelector('#dow-container');
+                    const nameContainer = document.querySelector('#name-container');
+                    const priceContainer = document.querySelector('#price-container');
+                    const reshioContainer = document.querySelector('#reshio-container');
+                    const percentContainer = document.querySelector('#percent-container');
+                    const polarityContainer = document.querySelector('#polarity-container');
 
-                // コンテナの中身を全部消す
-                todoContainer.innerHTML = '';
+                    // コンテナの中身を全部消す
+                    todoContainer.innerHTML = '';
 
-                // JSONの各要素に対して
-                for(const item of todoList) {
+                    // JSONの各要素に対して
+                    //for (const item of stock) {
+                    /*
                     const li = document.createElement('li');          // リスト要素
                     const label = document.createElement('label');    // ラベル
                     const checkbox = document.createElement('input'); // チェックボックス
                     checkbox.type = 'checkbox';
                     checkbox.checked = item.done;                     // 項目がdoneならチェック
                     const text = new Text(item.title);                // 項目名
-
+ 
+ 
                     // ラベルにチェックボックスとテキストを追加する
                     label.appendChild(checkbox);
                     label.appendChild(text);
-
+ 
                     // リスト要素に先ほどのラベルを追加する
                     li.appendChild(label);
-
+                    */
                     // TODOリストにリスト要素を追加する
-                    todoContainer.appendChild(li);
-                }
-            })
+                    //todoContainer.appendChild(li);
+                   
+
+                    //nameContainer.innerHTML = stock[1].Name;
+                    //priceContainer.innerHTML = stock[1].Price;
+                    //reshioContainer.innerHTML = stock[1].Reshio;
+                    //percentContainer.innerHTML = stock[1].Percent;
+                    //polarityContainer.innerHTML = stock[1].Polarity;
+
+
+                   
+                    dowContainer.innerHTML=stock[0].Price;
+
+
+                    //}
+                });
+
+        };
+
+        Re_fetch();
+        window.addEventListener('load', function () {
+            //await Re_fetch();
+            // setIntervalの基本
+            // タイマー開始
+            setInterval(Re_fetch, 30000);
+        });
+
+        document.getElementById("dey").innerHTML = showDay();
+        function showDay() {
+            var d = new Date();
+            let year = d.getFullYear();
+            let month = d.getMonth() + 1;
+            let day = d.getDate();
+            let dayofweek = d.getDay();
+            a = year + "/" + month.toString() + "/" + day.toString();
+            return a;
+        };
+
+
+
+
     </script>
+
 </body>
 
 </html>

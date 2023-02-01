@@ -1,3 +1,5 @@
+
+
 /**
  * [event] ページ読み込み完了時に実行
  */
@@ -5,7 +7,7 @@
 //https://www.nict.go.jp/en/
 // https://www.nict.go.jp/
 window.onload = ()=>{
-    const URL = "https://www.nict.go.jp/json";  // リクエスト先
+    const URL = "index.html";  // リクエスト先
   
     //--------------------------------------
     // 現在時間を取得する
