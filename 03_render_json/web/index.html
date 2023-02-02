@@ -32,11 +32,33 @@
             <label id="dow-container"></label>
             <br>
             <a><span></span>The day before reshio:$&nbsp;</a>
+            <label id="dowreshio-container"></label>
 
-            <label id="reshio-container"></label>
+            <br>
+            <label class="circle"></label>
+            <label>Nikkei Price:￥</label>
+            <label id="nk-container"> </label>
+            <br>
+            <a><span></span>The day before reshio:￥</a>
+            <a id="nkreshio-container"></a>
 
         </div>
     </div>
+
+    <div class="market-container">
+        <div class="icon">
+            <label>nkICON</label>
+        </div>
+        <div class="Price-container">
+            <div><span class="Market">Market capitalization</span></div>
+            <label class="circle"></label>
+            <label class="Market">Market capitalization</label>
+
+        </div>
+
+    </div>
+
+
 
 
     <script>
@@ -46,67 +68,48 @@
                 .then((response) => response.json())
                 .then((stock) => {
                     // id="todo-container"要素を取得する
-                    const todoContainer = document.querySelector('#todo-container');
+                    //const todoContainer = document.querySelector('#todo-container');
                     const dowContainer = document.querySelector('#dow-container');
-                    //const nameContainer = document.querySelector('#name-container');
-                    //const priceContainer = document.querySelector('#price-container');
-                    const reshioContainer = document.querySelector('#reshio-container');
-                    //const percentContainer = document.querySelector('#percent-container');
-                    //const polarityContainer = document.querySelector('#polarity-container');
+                    const dowreshioContainer = document.querySelector('#dowreshio-container');
+                    const nkContainer = document.querySelector('#nk-container');
+                    const nkreshioContainer = document.querySelector('#nkreshio-container');
 
                     // コンテナの中身を全部消す
-                    todoContainer.innerHTML = '';
-
-                    // JSONの各要素に対して
-                    //for (const item of stock) {
-                    /*
-                    const li = document.createElement('li');          // リスト要素
-                    const label = document.createElement('label');    // ラベル
-                    const checkbox = document.createElement('input'); // チェックボックス
-                    checkbox.type = 'checkbox';
-                    checkbox.checked = item.done;                     // 項目がdoneならチェック
-                    const text = new Text(item.title);                // 項目名
- 
- 
-                    // ラベルにチェックボックスとテキストを追加する
-                    label.appendChild(checkbox);
-                    label.appendChild(text);
- 
-                    // リスト要素に先ほどのラベルを追加する
-                    li.appendChild(label);
-                    */
-                    // TODOリストにリスト要素を追加する
-                    //todoContainer.appendChild(li);
+                    dowContainer.innerHTML = '';
+                    nkContainer.innerHTML = '';
 
 
-                    //nameContainer.innerHTML = stock[1].Name;
-                    //priceContainer.innerHTML = stock[1].Price;
-                    //reshioContainer.innerHTML = stock[1].Reshio;
-                    //percentContainer.innerHTML = stock[1].Percent;
-                    //polarityContainer.innerHTML = stock[1].Polarity;
+                    if (stock[0].Price != stock[0].Reshio) {
+                        dowContainer.innerHTML = stock[0].Price;
+                        dowreshioContainer.innerHTML = stock[0].Reshio + "&nbsp" + stock[0].Percent;
+
+                        stock[0].Polarity == "+" ? change = "red" : change = "green";
+                        document.getElementsByClassName("dow_circle")[0].style.background = change;
+                        document.getElementById("dowreshio-container").style.color = change;
 
 
+                        nkContainer.innerHTML = stock[1].Price;
+                        nkreshioContainer.innerHTML = stock[1].Reshio + "&nbsp" + stock[1].Percent;
 
-                    dowContainer.innerHTML = stock[0].Price;
-                    reshioContainer.innerHTML = stock[0].Reshio + "&nbsp" + stock[0].Percent;
+                        stock[1].Polarity == "+" ? change = "red" : change = "green";
+                        document.getElementsByClassName("circle")[0].style.background = change;
+                        document.getElementById("nkreshio-container").style.color = change;
+                    }
 
-                    stock[0].Polarity == "+" ? change = "red" : change = "green";
-                    document.getElementsByClassName("dow_circle")[0].style.background = change;
-                    document.getElementById("reshio-container").style.color = change;
 
                     //}
                 })
                 .catch((error) => {
                     //alert("エラーが発生しました");
-                    dowContainer.innerHTML="エラーが発生しました";
+                    dowContainer.innerHTML = "エラーが発生しました";
                     console.error(`[FetchAPI] ${error}, ${URL}`);
                 });
 
         };
 
-        Re_fetch();
-        window.addEventListener('load', function () {
-            //await Re_fetch();
+        //Re_fetch();
+        window.addEventListener('load', async function () {
+            await Re_fetch();
             // setIntervalの基本
             // タイマー開始
             setInterval(Re_fetch, 30000);
