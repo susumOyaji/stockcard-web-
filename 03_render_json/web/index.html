@@ -47,17 +47,39 @@
 
     <div class="market-container">
         <div class="icon">
-            <label>nkICON</label>
+            <label>ICON</label>
         </div>
         <div class="Price-container">
-            <div><span class="Market">Market capitalization</span></div>
+            <div><span id="Market">Market capitalization</span></div>
             <label class="circle"></label>
-            <label class="Market">Market capitalization</label>
-
+            <label id="Market-price">Market price:</label>
+            <br>
+            <a id="profit"><span></span> profit(Gains):￥</a>
+            <label id="invest"><span></span>investment:￥</label>
         </div>
 
     </div>
 
+    <div class="listview-container">
+        <div class="Code-circle">
+            <div id="code">ICON</div>
+        </div>
+
+        <div class="Market">
+            <label id="Name">SONY</label>
+            <br>
+            <label id="ListviewMarket">Market:</label>
+            <label id="invest1"><span></span>Benefits:</label>
+            <br>
+            <label id="Evalu">Evaluation:</label>
+        </div>
+
+        <div class="Button-container">
+            <input type="button" class="Previous" value="+650">
+        </div>
+
+    </div>
+    <div id="target" class="red">ここにclassを追加することでスタイルを変更します</div>
 
 
 
@@ -73,6 +95,7 @@
                     const dowreshioContainer = document.querySelector('#dowreshio-container');
                     const nkContainer = document.querySelector('#nk-container');
                     const nkreshioContainer = document.querySelector('#nkreshio-container');
+                    const div = document.getElementById('target');
 
                     // コンテナの中身を全部消す
                     dowContainer.innerHTML = '';
@@ -107,7 +130,9 @@
 
         };
 
-        //Re_fetch();
+        div.classList.add('listview-container');
+
+        //await Re_fetch();
         window.addEventListener('load', async function () {
             await Re_fetch();
             // setIntervalの基本
