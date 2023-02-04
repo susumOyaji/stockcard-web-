@@ -112,11 +112,10 @@ body {
     /*flex-direction: column;
     flex-wrap: nowrap;*/
     position: static;
-    text-align: left;
-    font-weight: bold;
+ 
     padding: 0px 0px 0px;
     /* [上]、[左右]、[下]の順に余白を指定 */
-    font-size: 16px;
+  
     height: 95px;
     width: 10%;
     /*line-height:small;*/

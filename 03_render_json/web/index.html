@@ -23,9 +23,12 @@
     <div id="dey"></div>
 
     <div class="average_container">
-        <div class="icon">
-            <label>ICON</label>
+        <div>
+            <a href="./img/icon-arow-24dp/1x" ><img class="icon" src="/baseline_trending_up_black_24dp.png"></a>
         </div>
+       
+       
+
         <div class="Price-container">
             <label class="dow_circle"></label>
             <label>Dow Price:$&nbsp;</label>
@@ -78,7 +81,7 @@
         </div>
 
         <div class="Button-container">
-            <input type="button" id="Previous" >
+            <input type="button" id="Previous">
         </div>
 
     </div>
@@ -128,7 +131,7 @@
                         document.getElementById("nkreshio-container").style.color = change;
 
                         Name.innerHTML = stock[2].Name;
-                        ListviewMarket.innerHTML = stock[2].Price ;
+                        ListviewMarket.innerHTML = stock[2].Price;
                         Previous.value = stock[2].Reshio;
 
                     }
@@ -144,7 +147,7 @@
 
         };
 
-      
+
 
         //await Re_fetch();
         window.addEventListener('load', async function () {
