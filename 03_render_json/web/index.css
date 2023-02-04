@@ -225,7 +225,7 @@ body {
     /* [上]、[左右]、[下]の順に余白を指定 */
     width: 70%;
   }
-  .Previous {
+  #Previous {
     display: flex;
     border-radius: 5px;
     margin: 15px;
@@ -236,6 +236,7 @@ body {
     background-color:red;
     cursor: pointer;
     width: 100px;
+    font-size: 20px;
   }
 
 

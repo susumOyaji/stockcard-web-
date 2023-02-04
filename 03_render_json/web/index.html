@@ -66,16 +66,19 @@
         </div>
 
         <div class="Market">
-            <label id="Name">SONY</label>
+            <label id="Name"></label>
             <br>
-            <label id="ListviewMarket">Market:</label>
-            <label id="invest1"><span></span>Benefits:</label>
+            <label>Market:</label>
+            <label id="ListviewMarket"></label>
+            <label><span></span>Benefits:</label>
+            <label id="invest1"></label>
             <br>
-            <label id="Evalu">Evaluation:</label>
+            <label>Evaluation:</label>
+            <label id="Evalu"></label>
         </div>
 
         <div class="Button-container">
-            <input type="button" class="Previous" value="+650">
+            <input type="button" id="Previous" >
         </div>
 
     </div>
@@ -95,6 +98,12 @@
                     const dowreshioContainer = document.querySelector('#dowreshio-container');
                     const nkContainer = document.querySelector('#nk-container');
                     const nkreshioContainer = document.querySelector('#nkreshio-container');
+
+                    const Name = document.querySelector('#Name');
+                    const ListviewMarket = document.querySelector('#ListviewMarket');
+                    const Previous = document.querySelector('#Previous');
+
+
                     const div = document.getElementById('target');
 
                     // コンテナの中身を全部消す
@@ -117,6 +126,11 @@
                         stock[1].Polarity == "+" ? change = "red" : change = "green";
                         document.getElementsByClassName("circle")[0].style.background = change;
                         document.getElementById("nkreshio-container").style.color = change;
+
+                        Name.innerHTML = stock[2].Name;
+                        ListviewMarket.innerHTML = stock[2].Price ;
+                        Previous.value = stock[2].Reshio;
+
                     }
 
 
@@ -130,7 +144,7 @@
 
         };
 
-        div.classList.add('listview-container');
+      
 
         //await Re_fetch();
         window.addEventListener('load', async function () {
