@@ -36,6 +36,12 @@ body {
     /* [上]、[左右]、[下]の順に余白を指定 */
     vertical-align: middle;
   }
+  img{
+    background-image: url(R.png);
+  
+    width:200px;
+    height:100px;
+    }
   
   #text-center {
     color: orange;
@@ -117,7 +123,7 @@ body {
     /* [上]、[左右]、[下]の順に余白を指定 */
   
     height: 95px;
-    width: 10%;
+    width: 50px;
     /*line-height:small;*/
   }
   
