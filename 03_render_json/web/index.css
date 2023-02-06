@@ -62,7 +62,7 @@ body {
   }
   
   
-  /*//////*/
+  /*DOW and Nikkei*/
   
   .average_container {
     display: flex;
@@ -153,21 +153,20 @@ body {
     display: flex;
     flex-direction: row;
     flex-wrap: nowrap;
-    border-radius: 0.25em;
     /*親要素*/
     border-radius: 0.25em;
     position: static;
     background: rgb(78, 78, 78);
-    height: 95px;
-    width: 85%;
-    text-align: left;
+    /*height: 105px;*/
+    /*width: 95%;*/
+    text-align: center;
     font-weight: bold;
-    /*margin: 0 auto;*/
+    /*margin: 15 auto;*/
     margin: 15px;
-    padding: 5px 5px 10px;
+    /*padding: 10px 5px 10px;*/
     /* [上]、[左右]、[下]の順に余白を指定 */
-    font-size: 16px;
-    line-height: small;
+    /*font-size:16px;*/
+    /*line-height:small;*/
   
   }
   #Market {
@@ -175,7 +174,8 @@ body {
     font-size:  30px;    /* 文字サイズ指定 */
   }
   #Market-price {
-    color:yellow;
+    color:orange;
+    font-size: 30px;
    
   }
   
