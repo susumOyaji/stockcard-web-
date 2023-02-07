@@ -108,7 +108,8 @@ app.get('/api/v1/list', (req, res) => {
         price = foo01[0].textContent;
         reshio = span[31].textContent + foo01[1].textContent;
         percent = span[30].textContent;
-        polarity = span[31].textContent;
+        polarity = percent;
+        polarity = polarity.substr( 0,1);//span[31].textContent;
 
 
         NIKEI = { Name: 'NIKEI', Price: price, Reshio: reshio, Percent: percent, Polarity: polarity };

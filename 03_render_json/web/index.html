@@ -21,7 +21,7 @@
     </div>
 
     <div id="dey"></div>
-    <img src="./img/icon-en-24dp/2x/baseline_currency_yen_black_24dp.png" alt="犬の写真">
+    
     <div class="average_container">
 
 
@@ -30,6 +30,8 @@
 
 
         <div class="Price-container">
+
+            <img src="icons8-japanese-yen-24.png" alt="犬の写真">
             <label class="dow_circle"></label>
             <label>Dow Price:$&nbsp;</label>
             <label id="dow-container"></label>
@@ -52,14 +54,20 @@
         <div class="icon">
             <label>ICON</label>
         </div>
-        <div class="Price-container">
-            <div><span id="Market">Market capitalization</span></div>
+        <div class="marketPrice-container">
+            <div><b><span id="Market">Market capitalization</span></b></div>
             <label class="circle"></label>
-            <label>Market price:&nbsp;</label>
+            <b>Market price:&nbsp;</b>
             <label id="Market-price"></label>
             <br>
-            <a id="profit"><span></span> profit(Gains):￥</a>
-            <label id="invest"><span></span>investment:￥</label>
+            <label>
+                <span1></span1>Profit(Gains):￥
+            </label>
+            <label id="profit"></label>
+            <label>
+                <span1></span1>Investment:￥
+            </label>
+            <label id="invest"></label>
         </div>
 
     </div>
@@ -75,10 +83,11 @@
             <label>Market:</label>
             <label id="ListviewMarket"></label>
             <label><span></span>Benefits:</label>
-            <label id="invest1"></label>
+            <label id="benefit"></label>
             <br>
             <label>Evaluation:</label>
-            <label id="Evalu"></label>
+            <label id="evalu"></label>
+            
         </div>
 
         <div class="Button-container">
@@ -92,7 +101,7 @@
 
     <script>
         //②配列リテラルの例
-        var sony = ['6758', 1000, 2000];
+        var sony = ['6758', 1665, 200];
         function Re_fetch() {
             // APIからJSONを取得する
             fetch('./api/v1/list')
@@ -105,18 +114,15 @@
                     const nkContainer = document.querySelector('#nk-container');
                     const nkreshioContainer = document.querySelector('#nkreshio-container');
 
-                    const Name = document.querySelector('#Name');
-                    const ListviewMarket = document.querySelector('#ListviewMarket');
-                    const Previous = document.querySelector('#Previous');
-                    const Marketprice = document.querySelector('#Market-price');
-
+                    
                     const div = document.getElementById('target');
 
                     // コンテナの中身を全部消す
                     dowContainer.innerHTML = '';
                     nkContainer.innerHTML = '';
 
-                    document.write('<img id="carousel__main" src="./img/icon-en-24dp/2x/baseline_currency_yen_black_24dp.png">');
+                    //document.write('<img id="carousel__main" src="/img/icon-en-24dp/2x/yen_black_24dp.png">');
+
                     if (stock[0].Price != stock[0].Reshio) {
                         dowContainer.innerHTML = stock[0].Price;
                         dowreshioContainer.innerHTML = stock[0].Reshio + "&nbsp" + stock[0].Percent;
@@ -126,41 +132,42 @@
                         document.getElementById("dowreshio-container").style.color = change;
 
 
-                        nkContainer.innerHTML = stock[2].Price;
-                        nkreshioContainer.innerHTML = stock[2].Reshio + "&nbsp" + stock[2].Percent;
+                        nkContainer.innerHTML = stock[1].Price;
+                        nkreshioContainer.innerHTML = stock[1].Reshio + "&nbsp" + stock[1].Percent;
 
-                        stock[2].Polarity == "+" ? change = "red" : change = "green";
+                        stock[1].Polarity == "+" ? change = "red" : change = "green";
                         document.getElementsByClassName("circle")[0].style.background = change;
                         document.getElementById("nkreshio-container").style.color = change;
 
 
 
-
-                        //var int_price = String(2+2); //引数に文字列を代入
-                        //document.write(int_price);
-                        //document.write(typeof stock[2].Price);
-                        var string_to_Number_sony = Number('12300'); //引数に数値を代入
-                        //var re = string_to_Number_sony.replace(/,/g, '');
-                        //document.write(typeof string_to_Number_sony);
-
-                        //document.write(string_to_Number_sony);//Number of NaN disp
-                        var con = string_to_Number_sony *sony[2];
-                        //document.write(String(con));
-
-
-                        //var result = Number(con.replace(/,/, ''));
-                        //document.write(typeof result);
-                        Marketprice.innerHTML= con;//stock[2].Price+"1234";
-
-
-
-                        Name.innerHTML = stock[2].Name;
-                        ListviewMarket.innerHTML = stock[2].Price;
-                        Previous.value = stock[2].Reshio;
-
                     }
 
+                    const Name = document.querySelector('#Name');
+                    const ListviewMarket = document.querySelector('#ListviewMarket');
+                    const Previous = document.querySelector('#Previous');
+                    const Marketprice = document.querySelector('#Market-price');
+                    const Profit = document.querySelector('#profit');
+                    const Invest = document.querySelector('#invest');
+                    const Benefit = document.querySelector('#benefit');
+                    const Evalu = document.querySelector('#evalu');
 
+
+
+
+                    var re = stock[2].Price.replace(',', '');//カンマ削除
+                    var con = re * sony[2];//時価X持ち株数
+                    var con1 = con.toLocaleString();//カンマ表記に戻す
+                    Marketprice.innerHTML = con1;//stock[2].Price+"1234";
+                    var inv = sony[1] * sony[2];
+                    Invest.innerHTML = inv.toLocaleString();
+                    Profit.innerHTML = (con - inv).toLocaleString();
+
+                    Benefit.innerHTML = (re - sony[1]).toLocaleString();
+                    Evalu.innerHTML = ((re - sony[1]) * sony[2]).toLocaleString();
+                    Name.innerHTML = stock[2].Name;
+                    ListviewMarket.innerHTML = stock[2].Price;
+                    Previous.value = stock[2].Reshio;
                     //}
                 })
                 .catch((error) => {
@@ -178,7 +185,7 @@
             await Re_fetch();
             // setIntervalの基本
             // タイマー開始
-            setInterval(Re_fetch, 30000);
+            setInterval(Re_fetch, 60000);
         });
 
         document.getElementById("dey").innerHTML = showDay();
