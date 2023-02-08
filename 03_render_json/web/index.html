@@ -16,22 +16,15 @@
 
 <body>
     <h1>StockCard</h1>
-    <div>
-        <ul id="todo-container"></ul>
-    </div>
-
     <div id="dey"></div>
-    
+
     <div class="average_container">
-
-
-
-
-
-
+        <div class="icon">
+            <label>↑</label>
+        </div>
         <div class="Price-container">
 
-            <img src="icons8-japanese-yen-24.png" alt="犬の写真">
+
             <label class="dow_circle"></label>
             <label>Dow Price:$&nbsp;</label>
             <label id="dow-container"></label>
@@ -52,7 +45,7 @@
 
     <div class="market-container">
         <div class="icon">
-            <label>ICON</label>
+            <label>￥</label>
         </div>
         <div class="marketPrice-container">
             <div><b><span id="Market">Market capitalization</span></b></div>
@@ -87,7 +80,7 @@
             <br>
             <label>Evaluation:</label>
             <label id="evalu"></label>
-            
+
         </div>
 
         <div class="Button-container">
@@ -114,7 +107,7 @@
                     const nkContainer = document.querySelector('#nk-container');
                     const nkreshioContainer = document.querySelector('#nkreshio-container');
 
-                    
+
                     const div = document.getElementById('target');
 
                     // コンテナの中身を全部消す
@@ -168,6 +161,8 @@
                     Name.innerHTML = stock[2].Name;
                     ListviewMarket.innerHTML = stock[2].Price;
                     Previous.value = stock[2].Reshio;
+
+
                     //}
                 })
                 .catch((error) => {
