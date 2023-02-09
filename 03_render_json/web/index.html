@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width" />
     <link rel="shortcut icon" href="data:image/x-icon;," type="image/x-icon">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="index.css" />
     <title>StockCard</title>
     <style>
@@ -19,9 +20,9 @@
     <div id="dey"></div>
 
     <div class="average_container">
-        <div class="icon">
-            <label>↑</label>
-        </div>
+
+        <label class="material-icons">trending_up</label>
+
         <div class="Price-container">
 
 
@@ -44,9 +45,7 @@
     </div>
 
     <div class="market-container">
-        <div class="icon">
-            <label>￥</label>
-        </div>
+        <label class="material-icons">currency_yen</label>
         <div class="marketPrice-container">
             <div><b><span id="Market">Market capitalization</span></b></div>
             <label class="circle"></label>
@@ -66,8 +65,9 @@
     </div>
 
     <div class="listview-container">
+       
         <div class="Code-circle">
-            <div id="code">ICON</div>
+            <div id="code"></div>
         </div>
 
         <div class="Market">
@@ -75,7 +75,9 @@
             <br>
             <label>Market:</label>
             <label id="ListviewMarket"></label>
-            <label><span></span>Benefits:</label>
+            <label>
+                <span1></span1>Benefits:
+            </label>
             <label id="benefit"></label>
             <br>
             <label>Evaluation:</label>
@@ -83,9 +85,9 @@
 
         </div>
 
-        <div class="Button-container">
-            <input type="button" id="Previous">
-        </div>
+
+        <button id="previous" type="button"></button>
+
 
     </div>
     <div id="target" class="red">ここにclassを追加することでスタイルを変更します</div>
@@ -138,14 +140,14 @@
 
                     const Name = document.querySelector('#Name');
                     const ListviewMarket = document.querySelector('#ListviewMarket');
-                    const Previous = document.querySelector('#Previous');
+                    
                     const Marketprice = document.querySelector('#Market-price');
                     const Profit = document.querySelector('#profit');
                     const Invest = document.querySelector('#invest');
                     const Benefit = document.querySelector('#benefit');
                     const Evalu = document.querySelector('#evalu');
-
-
+                    const Code = document.querySelector('#code');
+                    const Previous = document.querySelector('#previous');
 
 
                     var re = stock[2].Price.replace(',', '');//カンマ削除
@@ -160,7 +162,13 @@
                     Evalu.innerHTML = ((re - sony[1]) * sony[2]).toLocaleString();
                     Name.innerHTML = stock[2].Name;
                     ListviewMarket.innerHTML = stock[2].Price;
-                    Previous.value = stock[2].Reshio;
+                    Code.innerHTML = sony[0];
+                    Previous.innerHTML = stock[2].Reshio;
+                    stock[2].Polarity == "+" ? change = "rgb(255, 0, 0)" : change = "green";
+
+                    //irobako = document.getElementById("previous");
+                    //document.getElementById("previous").style.backgroundColor = change;
+                    document.getElementById("previous").style.backgroundColor = change;
 
 
                     //}
