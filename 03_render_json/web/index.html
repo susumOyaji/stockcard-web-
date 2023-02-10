@@ -16,9 +16,11 @@
 </head>
 
 <body>
-    <h1>StockCard</h1>
-    <div id="dey"></div>
-
+    <canvas id="cv" width="360" height="150"></canvas>
+    <div class="stocks_container">
+        <h1>StockCard</h1>
+        <div id="dey"></div>
+    </div>
     <div class="average_container">
 
         <label class="material-icons">trending_up</label>
@@ -44,6 +46,7 @@
         </div>
     </div>
 
+
     <div class="market-container">
         <label class="material-icons">currency_yen</label>
         <div class="marketPrice-container">
@@ -65,7 +68,7 @@
     </div>
 
     <div class="listview-container">
-       
+
         <div class="Code-circle">
             <div id="code"></div>
         </div>
@@ -140,7 +143,7 @@
 
                     const Name = document.querySelector('#Name');
                     const ListviewMarket = document.querySelector('#ListviewMarket');
-                    
+
                     const Marketprice = document.querySelector('#Market-price');
                     const Profit = document.querySelector('#profit');
                     const Invest = document.querySelector('#invest');
@@ -178,6 +181,74 @@
                     dowContainer.innerHTML = "エラーが発生しました";
                     console.error(`[FetchAPI] ${error}, ${URL}`);
                 });
+
+            /*
+        var cvs = document.getElementById("cv");
+        var ctx = cvs.getContext("2d");
+
+        ctx.lineWidth = 1;
+
+        ctx.strokeStyle = "green";  //線の色を緑に指定
+        ctx.fillStyle = "red";  //塗り潰しの色を赤に指定
+        //ctx.strokeRect(40, 40, 200, 100);
+        //ctx.fillRect(40, 40, 200, 100);
+
+        ctx.beginPath();     // 1.Pathで描画を開始する
+        ctx.arc(37, 37, 13, Math.PI / 7, -Math.PI / 7, false);
+        ctx.moveTo(15, 15); // 2.描画する位置を指定する
+        ctx.lineTo(30, 250);
+
+
+        ctx.lineTo(250, 200);
+
+        ctx.lineTo(280, 130);
+
+        ctx.lineTo(250, 80);
+
+        ctx.closePath();//最後の座標と最初の座標とを結ぶためのメソッドです
+
+        ctx.stroke();
+        */
+
+            const canvas = document.getElementById('cv');
+            const ctx = canvas.getContext('2d');
+            ctx.lineWidth = 1;
+            ctx.strokeStyle = "white";  //線の色を緑に指定
+            ctx.fillStyle = "red";  //塗り潰しの色を赤に指定
+
+            const p0 = { x: 20, y: 20 }
+            const p1 = { x: 80, y: 20 }
+            const p2 = { x: 80, y: 35 }
+            const p3 = { x: 60, y: 35 }
+            const p4 = { x: 60, y: 40 }
+            const p5 = { x: 20, y: 40 }
+
+
+            const labelPoint = function (p) {
+                const offset = 15;
+                ctx.fillText('(' + p.x + ',' + p.y + ')', p.x + offset, p.y + offset);
+            }
+
+            ctx.beginPath();
+            ctx.moveTo(50, 50);
+            ctx.lineTo(300, 50);
+            ctx.lineTo(300, 100);
+            ctx.lineTo(200, 100);
+            ctx.lineTo(200, 300);
+            ctx.lineTo(50, 300);
+            ctx.closePath();
+            ctx.fill();
+
+            labelPoint(p0);
+            labelPoint(p1);
+            labelPoint(p2);
+            // labelPoint(p3);
+            //labelPoint(p4);
+            //labelPoint(p5);
+
+            ctx.stroke();
+
+
 
         };
 
