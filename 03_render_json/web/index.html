@@ -16,7 +16,9 @@
 </head>
 
 <body>
-    <canvas id="cv" width="360" height="150"></canvas>
+    <canvas id="cv" width="360" height="100"></canvas>
+
+
     <div class="stocks_container">
         <h1>StockCard</h1>
         <div id="dey"></div>
@@ -182,71 +184,163 @@
                     console.error(`[FetchAPI] ${error}, ${URL}`);
                 });
 
-            /*
-        var cvs = document.getElementById("cv");
-        var ctx = cvs.getContext("2d");
+            //const ctx = $('cv')[0].getContext("2d");
+            var cvs = document.getElementById("cv");
+            var ctx = cvs.getContext("2d");
 
-        ctx.lineWidth = 1;
-
-        ctx.strokeStyle = "green";  //線の色を緑に指定
-        ctx.fillStyle = "red";  //塗り潰しの色を赤に指定
-        //ctx.strokeRect(40, 40, 200, 100);
-        //ctx.fillRect(40, 40, 200, 100);
-
-        ctx.beginPath();     // 1.Pathで描画を開始する
-        ctx.arc(37, 37, 13, Math.PI / 7, -Math.PI / 7, false);
-        ctx.moveTo(15, 15); // 2.描画する位置を指定する
-        ctx.lineTo(30, 250);
-
-
-        ctx.lineTo(250, 200);
-
-        ctx.lineTo(280, 130);
-
-        ctx.lineTo(250, 80);
-
-        ctx.closePath();//最後の座標と最初の座標とを結ぶためのメソッドです
-
-        ctx.stroke();
-        */
-
-            const canvas = document.getElementById('cv');
-            const ctx = canvas.getContext('2d');
+            ctx.fillStyle = 'white';
+            ctx.strokeStyle = 'red';
             ctx.lineWidth = 1;
-            ctx.strokeStyle = "white";  //線の色を緑に指定
-            ctx.fillStyle = "red";  //塗り潰しの色を赤に指定
 
-            const p0 = { x: 20, y: 20 }
-            const p1 = { x: 80, y: 20 }
-            const p2 = { x: 80, y: 35 }
-            const p3 = { x: 60, y: 35 }
-            const p4 = { x: 60, y: 40 }
-            const p5 = { x: 20, y: 40 }
+            // 角丸四角形  
+            fillRoundRect(ctx, 5, 10, 300, 50, 5);
+            //strokeRoundRect(ctx, 50, 100, 200, 100, 20);
+
+            // 吹き出し付き角丸四角形    
+            //fillBalloonRoundRect(ctx, 300, 100, 200, 100, 20, 30, 50, 50);
+            //strokeBalloonRoundRect(ctx, 300, 100, 200, 100, 20, 30, 50, 50);
+
+            //文字のスタイルを指定
+            //ctx.font = '1.2em "Fira Sans", monospace';//'20px serif';
+            //ctx.fillStyle = '#ffffff';
+            ctx.font = "bold 10px sans-serif";
+            ctx.scale(2, 2);
+           
+
+            //文字の配置を指定（左上基準にしたければtop/leftだが、文字の中心座標を指定するのでcenter
+            ctx.textBaseline = 'top';
+            ctx.textAlign = 'left';
+            //座標を指定して文字を描く（座標は画像の中心に）
+            var x = 10;//(cvs.width / 3);
+            var y = 10;//(cvs.height / 3);
+            ctx.fillText('StockCard', x, y);
+
+            /*
+     * 角が丸い四角形のパスを作成する
+     * @param  {CanvasRenderingContext2D} ctx コンテキスト
+     * @param  {Number} x   左上隅のX座標
+     * @param  {Number} y   左上隅のY座標
+     * @param  {Number} w   幅
+     * @param  {Number} h   高さ
+     * @param  {Number} r   半径
+     */
+            function createRoundRectPath(ctx, x, y, w, h, r) {
+                ctx.beginPath();
+                ctx.moveTo(x + r, y);
+
+                ctx.lineTo(x + w - r, y);//1
+                ctx.arc(x + w - r, y + r, r, Math.PI * (3 / 2), 0, false);
+
+                ctx.lineTo(x + w, y + h - r);//2
+                ctx.arc(x + w - r, y + h - r, r, 0, Math.PI * (1 / 2), false);
+
+                ctx.lineTo(x + w / 2 + r, y + h);//3
+                //ctx.arc(x + w / 2 + r, y + h / 2 - r, r, Math.PI * (1 / 2), Math.PI, false);
+
+                ctx.lineTo(x + w / 2 + r, y + h / 2);//4
+                //ctx.arc(x + w / 2 + r, y + h - r, r, Math.PI * (1 / 2), Math.PI, false);
+
+                ctx.lineTo(x + r, y + h / 2);//5
+                ctx.arc(x + r, y + h / 2 - r, r, Math.PI * (1 / 2), Math.PI, false);
 
 
-            const labelPoint = function (p) {
-                const offset = 15;
-                ctx.fillText('(' + p.x + ',' + p.y + ')', p.x + offset, p.y + offset);
+                ctx.lineTo(x, y + r);//6
+                ctx.arc(x + r, y + r, r, Math.PI, Math.PI * (3 / 2), false);
+
+                ctx.closePath();
             }
 
-            ctx.beginPath();
-            ctx.moveTo(50, 50);
-            ctx.lineTo(300, 50);
-            ctx.lineTo(300, 100);
-            ctx.lineTo(200, 100);
-            ctx.lineTo(200, 300);
-            ctx.lineTo(50, 300);
-            ctx.closePath();
-            ctx.fill();
+            /**
+             * 角が丸い四角形を塗りつぶす
+             * @param  {CanvasRenderingContext2D} ctx コンテキスト
+             * @param  {Number} x   左上隅のX座標
+             * @param  {Number} y   左上隅のY座標
+             * @param  {Number} w   幅
+             * @param  {Number} h   高さ
+             * @param  {Number} r   半径
+             */
+            function fillRoundRect(ctx, x, y, w, h, r) {
+                createRoundRectPath(ctx, x, y, w, h, r);
+                //ctx.fill();
+                ctx.stroke();
+            }
 
-            labelPoint(p0);
-            labelPoint(p1);
-            labelPoint(p2);
-            // labelPoint(p3);
-            //labelPoint(p4);
-            //labelPoint(p5);
+            /**
+             * 角が丸い四角形を描画
+             * @param  {CanvasRenderingContext2D} ctx コンテキスト
+             * @param  {Number} x   左上隅のX座標
+             * @param  {Number} y   左上隅のY座標
+             * @param  {Number} w   幅
+             * @param  {Number} h   高さ
+             * @param  {Number} r   半径
+             */
+            function strokeRoundRect(ctx, x, y, w, h, r) {
+                createRoundRectPath(ctx, x, y, w, h, r);
+                ctx.stroke();
+            }
 
-            ctx.stroke();
+            /**
+             * 角が丸い四角形の吹き出し(吹き出しは下側)のパスを作成する
+             * @param  {CanvasRenderingContext2D} ctx コンテキスト
+             * @param  {Number} x   左上隅のX座標
+             * @param  {Number} y   左上隅のY座標
+             * @param  {Number} w   幅
+             * @param  {Number} h   高さ
+             * @param  {Number} r   半径
+             * @param  {Number} bl  三角形の左上隅のX座標
+             * @param  {Number} br  三角形の右上隅のX座標
+             * @param  {Number} bh  三角形の高さ
+             */
+            function createBalloonRoundRectPath(ctx, x, y, w, h, r, bl, br, bh) {
+                ctx.beginPath();
+                ctx.moveTo(x + r, y);
+                ctx.lineTo(x + w - r, y);
+                ctx.arc(x + w - r, y + r, r, Math.PI * (3 / 2), 0, false);
+                ctx.lineTo(x + w, y + h - r);
+                ctx.arc(x + w - r, y + h - r, r, 0, Math.PI * (1 / 2), false);
+                ctx.lineTo(x + br, y + h);
+                ctx.lineTo(x + (br + bl) / 2, y + h + bh);
+                ctx.lineTo(x + bl, y + h);
+                ctx.lineTo(x + r, y + h);
+                ctx.arc(x + r, y + h - r, r, Math.PI * (1 / 2), Math.PI, false);
+                ctx.lineTo(x, y + r);
+                ctx.arc(x + r, y + r, r, Math.PI, Math.PI * (3 / 2), false);
+                ctx.closePath();
+            }
+
+            /**
+             * 角が丸い四角形の吹き出し(吹き出しは下側)を塗りつぶす
+             * @param  {CanvasRenderingContext2D} ctx コンテキスト
+             * @param  {Number} x   左上隅のX座標
+             * @param  {Number} y   左上隅のY座標
+             * @param  {Number} w   幅
+             * @param  {Number} h   高さ
+             * @param  {Number} r   半径
+             * @param  {Number} bl  三角形の左上隅のX座標
+             * @param  {Number} br  三角形の右上隅のX座標
+             * @param  {Number} bh  三角形の高さ
+             */
+            function fillBalloonRoundRect(ctx, x, y, w, h, r, bl, br, bh) {
+                createBalloonRoundRectPath(ctx, x, y, w, h, r, bl, br, bh);
+                ctx.fill();
+            }
+
+            /**
+             * 角が丸い四角形の吹き出し(吹き出しは下側)を描画する
+             * @param  {CanvasRenderingContext2D} ctx コンテキスト
+             * @param  {Number} x   左上隅のX座標
+             * @param  {Number} y   左上隅のY座標
+             * @param  {Number} w   幅
+             * @param  {Number} h   高さ
+             * @param  {Number} r   半径
+             * @param  {Number} bl  三角形の左上隅のX座標
+             * @param  {Number} br  三角形の右上隅のX座標
+             * @param  {Number} bh  三角形の高さ
+             */
+            function strokeBalloonRoundRect(ctx, x, y, w, h, r, bl, br, bh) {
+                createBalloonRoundRectPath(ctx, x, y, w, h, r, bl, br, bh);
+                ctx.stroke();
+            }
 
 
 
