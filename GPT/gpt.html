@@ -2,7 +2,16 @@
 <html lang="jp">
 
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width" />
+    <link rel="shortcut icon" href="data:image/x-icon;," type="image/x-icon">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="/03_render_json/web/index.css" />
     <style>
+        html {
+            background-color: rgb(240, 240, 240);
+        }
+
         #myCanvas {
             border: 1px solid black;
         }
@@ -11,7 +20,39 @@
 
 <body>
     <canvas id="myCanvas" width="500" height="500"></canvas>
+
+
+    <div class="listview-container">
+
+        <div class="Code-circle">
+            <div id="code"></div>
+        </div>
+
+        <div class="Market">
+            <label id="Name"></label>
+            <br>
+            <label>Market:</label>
+            <label id="ListviewMarket"></label>
+            <label>
+                <span1></span1>Benefits:
+            </label>
+            <label id="benefit"></label>
+            <br>
+            <label>Evaluation:</label>
+            <label id="evalu"></label>
+
+        </div>
+
+
+        <button id="previous" type="button"></button>
+
+
+    </div>
+
+    <ul id="myList"></ul>
+
     <script>
+
         x = 5;
         y = 5;
         w = 300;
@@ -20,8 +61,10 @@
 
         var canvas = document.getElementById("myCanvas");
         var ctx = canvas.getContext("2d");
+
+
         ctx.fillStyle = "red";
-        ctx.beginPath();
+
 
         ctx.beginPath();
         ctx.moveTo(x + r, y);
@@ -47,6 +90,29 @@
 
         ctx.closePath();
         ctx.stroke();
+
+
+
+
+
+
+
+        const list = document.getElementsByClassName("listview-container");
+
+        var element = document.getElementById('myList'); // ul が存在することを仮定
+        var fragment = document.createDocumentFragment();
+        var browsers = ['Firefox', 'Chrome', 'Opera',
+            'Safari', 'Internet Explorer'];
+
+        browsers.forEach(function (browser) {
+            var li = document.createElement('li');
+            li.textContent = browser;
+            fragment.appendChild(li);
+        });
+
+        element.appendChild(fragment);
+
+
 
 
     </script>

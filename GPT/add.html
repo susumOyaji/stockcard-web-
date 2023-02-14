@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <script>
+    function addElement() {
+      // 新しい要素を作成する
+      var newDiv = document.createElement("div");
+      var newContent = document.createTextNode("これは新しい要素です");
+      newDiv.appendChild(newContent);
+
+      // 新しい要素を追加する
+      var currentDiv = document.getElementById("div1");
+      document.body.insertBefore(newDiv, currentDiv);
+    }
+  </script>
+</head>
+<body>
+  <button onclick="addElement()">要素を追加</button>
+  <div id="div1">これは既存の要素です</div>
+</body>
+</html>
