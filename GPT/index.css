@@ -1,0 +1,29 @@
+#parent {
+    background-color: #eee;
+    padding: 10px;
+  }
+  #child1 {
+    background-color: yellow;
+    padding: 10px;
+  }
+  #child2 {
+    background-color: green;
+    padding: 10px;
+  }
+  #blue {
+    background-color: blue;
+    padding: 10px;
+    color: #fff;
+  }
+  li {
+    margin-left: 10px;
+  }
+  input {
+    display: block;
+    margin-top: 5px;
+  }
+  #frame {
+    background-color: #A9E2F3;
+    padding: 10px;
+    max-width: 300px;
+  }
