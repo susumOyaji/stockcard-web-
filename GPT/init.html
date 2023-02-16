@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width" />
+    <link rel="shortcut icon" href="data:image/x-icon;," type="image/x-icon">
+    <link rel="stylesheet" type="text/css" href="/03_render_json/web/index.css" />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <title>タイトル</title>
+</head>
+
+<body>
+    <button id="btn_1">btn</button>
+
+    <div id="stocks_container">
+        <h1>StockCard</h1>
+        <div class="dey"></div>
+    </div>
+
+    <div id="average_container">
+
+        <label class="material-icons">trending_up</label>
+
+        <div class="Price-container">
+
+
+            <label class="dow_circle"></label>
+            <label>Dow Price:$&nbsp;</label>
+            <label id="dow-container"></label>
+            <br>
+            <a><span></span>The day before reshio:$&nbsp;</a>
+            <label id="dowreshio-container"></label>
+
+            <br>
+            <label class="circle"></label>
+            <label>Nikkei Price:￥</label>
+            <label id="nk-container"> </label>
+            <br>
+            <a><span></span>The day before reshio:￥</a>
+            <a id="nkreshio-container"></a>
+
+        </div>
+        <div id="market-container">
+            <label class="material-icons">currency_yen</label>
+            <div class="marketPrice-container">
+                <div><b><span id="Market">Market capitalization</span></b></div>
+                <label class="circle"></label>
+                <b>Market price:&nbsp;</b>
+                <label id="Market-price"></label>
+                <br>
+                <label>
+                    <span1></span1>Profit(Gains):￥
+                </label>
+                <label id="profit"></label>
+                <label>
+                    <span1></span1>Investment:￥
+                </label>
+                <label id="invest"></label>
+            </div>
+
+        </div>
+
+        <div id="listview-container">
+            <h1>ListView</h1>
+
+            <div class="Code-circle">
+                <div id="code"></div>
+            </div>
+
+            <div class="Market">
+                <label id="Name"></label>
+                <br>
+                <label>Market:</label>
+                <label id="ListviewMarket"></label>
+                <label>
+                    <span1></span1>Benefits:
+                </label>
+                <label id="benefit"></label>
+                <br>
+                <label>Evaluation:</label>
+                <label id="evalu"></label>
+
+            </div>
+        </div>
+
+        <script>
+            var num = 0;
+
+            function adding() {
+
+                // 複製するHTML要素を取得
+                let content_area = document.getElementById("listview-container");
+
+                // 複製
+                // trueを指定すると、子ノードまで取得します
+                let clone_element = content_area.cloneNode(true);
+                // 複製した要素の属性を編集
+                clone_element.id = "content_area2" + num;
+
+                // 複製した要素の子孫要素を編集
+                let h2_element = clone_element.querySelector("h1");
+                h2_element.textContent = '複製した要素';
+
+                // 複製したHTML要素をページに挿入
+                content_area.after(clone_element);
+
+
+
+
+
+
+
+                var elm_add = document.createElement('div');
+
+                var newId = document.createElement("button");
+                elm_add.id = "hoge" + num;
+                elm_add.textContent = 'div added';
+                var objBody = document.getElementsByTagName("body").item(0);
+                objBody.appendChild(elm_add);
+                elm_add.addEventListener("click", warnings, false);
+                num++;
+            }
+
+            var elm = document.getElementById("btn_1");
+            elm.addEventListener("click", adding, false);
+
+            function warnings() {
+                alert('it works! congraturations!!')
+            }
+        </script>
+</body>
+
+</html>

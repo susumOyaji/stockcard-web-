@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="jp">
+
+<head>
+    <title>test</title>
+    <script type="text/javascript" language="JavaScript">
+        function bar() {
+            // a 要素の作成と属性の指定
+            var newAnchor = document.createElement("a");
+            var newTxt = document.createTextNode(document.getElementById("favtext").value);
+            newAnchor.appendChild(newTxt);
+            newAnchor.setAttribute("href", document.getElementById("favurl").value);
+            newAnchor.setAttribute("target", "_blanc");
+
+            // li 要素の作成
+            var newLi = document.createElement("li");
+            newLi.appendChild(newAnchor);
+
+            // リストに追加
+            var list = document.getElementById("FavList");
+            list.appendChild(newLi);
+        }
+    </script>
+</head>
+
+<body>
+    <p>
+        リンクの追加:<br />
+        <input type="text" id="favtext" /><br />
+        <input type="text" id="favurl" />
+        <input type="button" id="addurl" value="OK" onclick="bar();" />
+    <ul id="FavList">
+    </ul>
+    </p>
+</body>
+
+</html>

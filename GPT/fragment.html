@@ -1,0 +1,53 @@
+<!doctype html>
+<html>
+
+<head>
+    <title>test</title>
+</head>
+
+<body>
+    <div id="stocks_container">
+        <h1>StockCard</h1>
+        <div class="dey"></div>
+    </div>
+
+    <script type="text/javascript">
+        var df = document.createDocumentFragment();
+
+        var newEle = document.createElement('div');
+        var parents = document.getElementById('stocks_container');
+        var reference = document.querySelector('.dey');
+        reference.innerHTML='dey';
+
+
+        df.appendChild(newEle);
+        df.appendChild(parents);
+        df.appendChild(reference);
+
+
+
+        document.body.appendChild(df);
+        console.log(df);
+
+        /*
+        <div id="article">
+            <div class="title"></div>
+            <div class="image"></div>
+            <div class="content"></div>
+        </div>
+        class="image"要素の前にclass = "date"の要素を追加する例は以下の通りです。
+
+        var newEle = document.createElement('div');
+        newEle.classList.add('date');
+        var parent = document.getElementById('article');
+        var reference = document.querySelector('.image');
+        var rtn = parent.insertBefore(newEle, reference);
+        console.log(rtn);  // <div class="date"></div>
+*/
+
+
+
+    </script>
+</body>
+
+</html>

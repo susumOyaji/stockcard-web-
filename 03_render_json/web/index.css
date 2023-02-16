@@ -10,13 +10,13 @@ body {
   position: absolute;
   width: 45%;
 
-  top: 80%;
+  top: 50%;
   left: 50%;
   /*margin-right: -50%;*/
   transform: translate(-50%, -50%)
 }
 
-.stocks_container {
+#stocks_container {
   display: flex;
   flex-direction: row;
   flex-wrap: nowrap;
@@ -64,7 +64,7 @@ img {
 
 /*DOW and Nikkei*/
 
-.average_container {
+#average_container {
   display: flex;
   flex-direction: row;
   flex-wrap: nowrap;
@@ -174,7 +174,7 @@ span1 {
 }
 
 
-.market-container {
+#market-container {
   display: flex;
   flex-direction: row;
   flex-wrap: nowrap;
@@ -195,7 +195,7 @@ span1 {
 
 }
 
-.marketPrice-container {
+#marketPrice-container {
   /*display: flex;*/
   flex-direction: column;
   flex-wrap: nowrap;
@@ -240,7 +240,7 @@ span1 {
 }
 
 
-.listview-container {
+#listview-container {
   display: flex;
   flex-direction: row;
   flex-wrap: nowrap;
@@ -255,6 +255,8 @@ span1 {
   /*font-weight: bold;*/
   /*margin: 0 auto;*/
   margin: 15px;
+  box-sizing: border-box;
+  overflow-y: auto; /* 必要なときだけ縦方向のスクロールバーを表示 */
   /*padding: 5px 5px 5px;*/
   /* [上]、[左右]、[下]の順に余白を指定 */
   /*font-size: 16px;*/
