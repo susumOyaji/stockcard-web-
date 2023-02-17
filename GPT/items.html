@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width" />
+    <link rel="shortcut icon" href="data:image/x-icon;," type="image/x-icon">
+    <link rel="stylesheet" type="text/css" href="/03_render_json/web/index.css" />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="items.css" />
+    <title>タイトル</title>
+    <style>
+        html {
+            background-color: rgb(240, 240, 240);
+        }
+    </style>
+    <title>ListView Sample</title>
+    <style>
+        #myList {
+            border: 1px solid black;
+            padding: 10px;
+        }
+    </style>
+
+</head>
+
+
+<body>
+    <h2>My List</h2>
+    <div id="listview-container">
+        <ul id="myList">
+            <label>sample</label>
+        </ul>
+    </div>
+    <button onclick="addItems()">Add Items</button>
+
+
+
+    <script>
+        function addItems() {
+            const ul = document.getElementById("myList");
+            const items = [
+                { type: "div", style: "border: 1px solid blue; padding: 5px;", content: "This is a div element." },
+                { type: "img", src: "https://picsum.photos/200", alt: "Random image" },
+                { type: "p", content: "This is a paragraph element." }];
+
+            items.forEach(function (item) {
+                const element = document.createElement(item.type);
+                if (item.style) {
+                    element.setAttribute("style", item.style);
+                }
+                if (item.content) {
+                    element.textContent = item.content;
+                }
+                if (item.src) {
+                    element.src = item.src;
+                }
+                if (item.alt) {
+                    element.alt = item.alt;
+                }
+                ul.appendChild(element);
+            });
+        }
+
+    </script>
+</body>
+
+</html>

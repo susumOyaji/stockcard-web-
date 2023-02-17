@@ -8,10 +8,17 @@
     <link rel="stylesheet" type="text/css" href="/03_render_json/web/index.css" />
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <title>タイトル</title>
+    <style>
+        html {
+            background-color: rgb(240, 240, 240);
+        }
+    </style>
 </head>
 
 <body>
-    <button id="btn_1">btn</button>
+    <button onclick="addItem()">Add Item</button>
+    <button onclick="scrollList()">Scroll Down</button>
+    <!--<button id="btn_1">btn</button>-->
 
     <div id="stocks_container">
         <h1>StockCard</h1>
@@ -41,94 +48,118 @@
             <a id="nkreshio-container"></a>
 
         </div>
-        <div id="market-container">
-            <label class="material-icons">currency_yen</label>
-            <div class="marketPrice-container">
-                <div><b><span id="Market">Market capitalization</span></b></div>
-                <label class="circle"></label>
-                <b>Market price:&nbsp;</b>
-                <label id="Market-price"></label>
-                <br>
-                <label>
-                    <span1></span1>Profit(Gains):￥
-                </label>
-                <label id="profit"></label>
-                <label>
-                    <span1></span1>Investment:￥
-                </label>
-                <label id="invest"></label>
-            </div>
+    </div>
 
+    <div id="market-container">
+        <label class="material-icons">currency_yen</label>
+        <div class="marketPrice-container">
+            <div><b><span id="Market">Market capitalization</span></b></div>
+            <label class="circle"></label>
+            <b>Market price:&nbsp;</b>
+            <label id="Market-price"></label>
+            <br>
+            <label>
+                <span1></span1>Profit(Gains):￥
+            </label>
+            <label id="profit"></label>
+            <label>
+                <span1></span1>Investment:￥
+            </label>
+            <label id="invest"></label>
         </div>
 
-        <div id="listview-container">
-            <h1>ListView</h1>
+    </div>
 
-            <div class="Code-circle">
-                <div id="code"></div>
-            </div>
-
-            <div class="Market">
-                <label id="Name"></label>
-                <br>
-                <label>Market:</label>
-                <label id="ListviewMarket"></label>
-                <label>
-                    <span1></span1>Benefits:
-                </label>
-                <label id="benefit"></label>
-                <br>
-                <label>Evaluation:</label>
-                <label id="evalu"></label>
-
-            </div>
+    <div id="listview-container">
+        <div class="Code-circle">
+            <div id="code"></div>
         </div>
 
-        <script>
-            var num = 0;
+        <div class="Market">
+            <label id="Name"></label>
+            <br>
+            <label>Market:</label>
+            <label id="ListviewMarket"></label>
+            <label>
+                <span1></span1>Benefits:
+            </label>
+            <label id="benefit"></label>
+            <br>
+            <label>Evaluation:</label>
+            <label id="evalu"></label>
 
-            function adding() {
+        </div>
+        <button id="previous" type="button">btn</button>
+    </div>
 
-                // 複製するHTML要素を取得
-                let content_area = document.getElementById("listview-container");
+    <script>
+        function addItem() {
+            const ul = document.getElementById("listview-container");
+            // 複製するHTML要素を取得
+            let content_area = document.getElementById("listview-container");
+            // 複製
+            // trueを指定すると、子ノードまで取得します
+            let clone_element = content_area.cloneNode(true);
+            var objBody = document.getElementsByTagName("body").item(0);
+            //objBody.appendChild(clone_element);
+            // 複製したHTML要素をページに挿入
+            ul.after(clone_element);
+            //const li = document.createElement("li");
+            //li.innerHTML = clone_element;
+            //ul.appendChild(li);
+        }
+        function scrollList() {
+            const list = document.getElementById("listview-container");
+            list.scrollTop += 50;
+        }
 
-                // 複製
-                // trueを指定すると、子ノードまで取得します
-                let clone_element = content_area.cloneNode(true);
-                // 複製した要素の属性を編集
-                clone_element.id = "content_area2" + num;
-
-                // 複製した要素の子孫要素を編集
-                let h2_element = clone_element.querySelector("h1");
-                h2_element.textContent = '複製した要素';
-
-                // 複製したHTML要素をページに挿入
-                content_area.after(clone_element);
 
 
+        var num = 0;
+
+        function adding() {
+            /*
+            // 複製するHTML要素を取得
+            let content_area = document.getElementById("listview-container");
+    
+            // 複製
+            // trueを指定すると、子ノードまで取得します
+            let clone_element = content_area.cloneNode(true);
+            // 複製した要素の属性を編集
+            clone_element.id = "listview-container2" + num;
+            var objListview = document.getElementsByTagName("listview-container").item(0);
+    
+            // 複製した要素の子孫要素を編集
+            let h2_element = clone_element.querySelector("#Name");
+            h2_element.textContent = '複製した要素';
+    
+            // 複製したHTML要素をページに挿入
+            content_area.after(clone_element);
+    
+    */
 
 
 
 
 
-                var elm_add = document.createElement('div');
+            var elm_add = document.createElement('div');
 
-                var newId = document.createElement("button");
-                elm_add.id = "hoge" + num;
-                elm_add.textContent = 'div added';
-                var objBody = document.getElementsByTagName("body").item(0);
-                objBody.appendChild(elm_add);
-                elm_add.addEventListener("click", warnings, false);
-                num++;
-            }
+            var newId = document.createElement("button");
+            elm_add.id = "hoge" + num;
+            elm_add.textContent = 'div added';
+            var objBody = document.getElementsByTagName("body").item(0);
+            objBody.appendChild(elm_add);
+            elm_add.addEventListener("click", warnings, false);
+            num++;
+        }
 
-            var elm = document.getElementById("btn_1");
-            elm.addEventListener("click", adding, false);
+        var elm = document.getElementById("previous");
+        elm.addEventListener("click", adding, false);
 
-            function warnings() {
-                alert('it works! congraturations!!')
-            }
-        </script>
+        function warnings() {
+            alert('it works! congraturations!!')
+        }
+    </script>
 </body>
 
 </html>
