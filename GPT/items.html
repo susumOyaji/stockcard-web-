@@ -24,6 +24,7 @@
     <div id="listview-container">
         <ul id="myList">
 
+
         </ul>
     </div>
     <button onclick="addItems(6758,'sony',2,3,4)">Add Items</button>
@@ -31,13 +32,14 @@
 
 
     <script>
-        const element = document.getElementById('listview-container');
-        const styles = element.style;
-
+        //const element = document.getElementById('code');
+        //const styles = element.style;
+        const stylesheet = document.styleSheets[1];
+        stylesheet.cssRules[0].style.backgroundColor = "aqua";
 
         function addItems(code, name, ListviewMarket, benefit, evalu) {
             const ul = document.getElementById("myList");
-            ul.style.styles;
+            //ul.style.styles;
             const items = [
                 {
                     type: "div",
