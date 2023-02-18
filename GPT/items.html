@@ -15,12 +15,6 @@
         }
     </style>
     <title>ListView Sample</title>
-    <style>
-        #myList {
-            border: 1px solid black;
-            padding: 10px;
-        }
-    </style>
 
 </head>
 
@@ -29,20 +23,52 @@
     <h2>My List</h2>
     <div id="listview-container">
         <ul id="myList">
-            <label>sample</label>
+
         </ul>
     </div>
-    <button onclick="addItems()">Add Items</button>
+    <button onclick="addItems(6758,'sony',2,3,4)">Add Items</button>
 
 
 
     <script>
-        function addItems() {
+        const element = document.getElementById('listview-container');
+        const styles = element.style;
+
+
+        function addItems(code, name, ListviewMarket, benefit, evalu) {
             const ul = document.getElementById("myList");
+            ul.style.styles;
             const items = [
-                { type: "div", style: "border: 1px solid blue; padding: 5px;", content: "This is a div element." },
-                { type: "img", src: "https://picsum.photos/200", alt: "Random image" },
-                { type: "p", content: "This is a paragraph element." }];
+                {
+                    type: "div",
+                    style: " width: 60px;border- radius: 50 %;background: purple;text - align: center;line - height: 60px;",
+                    content: "code Name.",
+                    dynamicVar: code
+                },
+                {
+                    type: "label",
+                    style: " width: 60px;background: purple;text - align: center;line - height: 60px;",
+                    content: name,
+                    dynamicVar: name
+                },
+                {
+                    type: "div",
+                    style: "border: 1px solid blue; padding:" + `${ListviewMarket}px;`,
+                    content: "This is a div element.",
+                    dynamicVar: benefit
+                },
+                {
+                    type: "img",
+                    src: "https://picsum.photos/200",
+                    alt: "Random image",
+                    dynamicVar: evalu
+                },
+                {
+                    type: "p",
+                    content: "This is a paragraph element.",
+                    dynamicVar: evalu
+                }
+            ];
 
             items.forEach(function (item) {
                 const element = document.createElement(item.type);
@@ -58,9 +84,16 @@
                 if (item.alt) {
                     element.alt = item.alt;
                 }
+                if (item.dynamicVar) {
+                    element.setAttribute("data-dynamic-var", item.dynamicVar);
+                    element.addEventListener("click", function () {
+                        console.log("Dynamic var: " + this.getAttribute("data-dynamic-var"));
+                    });
+                }
                 ul.appendChild(element);
             });
         }
+
 
     </script>
 </body>

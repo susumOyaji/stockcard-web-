@@ -70,40 +70,43 @@
 
     </div>
 
-    <div id="listview-container">
-        <div class="Code-circle">
-            <div id="code"></div>
-        </div>
+    <div id="list">
+        <div id="listview-container">
+            <div class="Code-circle">
+                <div id="code"></div>
+            </div>
 
-        <div class="Market">
-            <label id="Name"></label>
-            <br>
-            <label>Market:</label>
-            <label id="ListviewMarket"></label>
-            <label>
-                <span1></span1>Benefits:
-            </label>
-            <label id="benefit"></label>
-            <br>
-            <label>Evaluation:</label>
-            <label id="evalu"></label>
+            <div class="Market">
+                <label id="Name"></label>
+                <br>
+                <label>Market:</label>
+                <label id="ListviewMarket"></label>
+                <label>
+                    <span1></span1>Benefits:
+                </label>
+                <label id="benefit"></label>
+                <br>
+                <label>Evaluation:</label>
+                <label id="evalu"></label>
 
+            </div>
+            <button id="previous" type="button">btn</button>
         </div>
-        <button id="previous" type="button">btn</button>
     </div>
 
     <script>
         function addItem() {
-            const ul = document.getElementById("listview-container");
+            const ul = document.getElementById("list");
             // 複製するHTML要素を取得
             let content_area = document.getElementById("listview-container");
             // 複製
             // trueを指定すると、子ノードまで取得します
             let clone_element = content_area.cloneNode(true);
-            var objBody = document.getElementsByTagName("body").item(0);
+            var objBody = document.getElementsByTagName("div").item(10);
+            let len = objBody.length;
             //objBody.appendChild(clone_element);
             // 複製したHTML要素をページに挿入
-            ul.after(clone_element);
+            ul.after(objBody.clone_element);
             //const li = document.createElement("li");
             //li.innerHTML = clone_element;
             //ul.appendChild(li);

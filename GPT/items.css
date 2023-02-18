@@ -23,15 +23,15 @@ body {
   /*親要素*/
   border-radius: 0.25em;
   /*position: static;*/
-  background: rgb(78, 78, 78);
-  height: 95px;
+  background:red;
+  height: 250px;
   width: 95%;
   /*text-align: left;*/
   /*font-weight: bold;*/
   /*margin: 0 auto;*/
   margin: 15px;
   /*box-sizing: border-box;*/
-  overflow-y: auto; /* 必要なときだけ縦方向のスクロールバーを表示 */
+  /*overflow-y: auto;*/ /* 必要なときだけ縦方向のスクロールバーを表示 */
   /*padding: 5px 5px 5px;*/
   /* [上]、[左右]、[下]の順に余白を指定 */
   /*font-size: 16px;*/
