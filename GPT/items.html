@@ -5,9 +5,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width" />
     <link rel="shortcut icon" href="data:image/x-icon;," type="image/x-icon">
-    <link rel="stylesheet" type="text/css" href="/03_render_json/web/index.css" />
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="items.css" />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
     <title>タイトル</title>
     <style>
         html {
@@ -32,10 +32,44 @@
 
 
     <script>
-        //const element = document.getElementById('code');
-        //const styles = element.style;
-        const stylesheet = document.styleSheets[1];
-        stylesheet.cssRules[0].style.backgroundColor = "aqua";
+        /*
+        var styleSheets = document.querySelectorAll('link[rel="stylesheet"], style');
+
+        const styles = document.querySelectorAll('link[rel="stylesheet"], style');
+        //console.log(styleSheets[2]); // "h1 { color: blue; font-size: 24px; }"
+        styles.forEach(style => {
+            if (style.nodeName === 'LINK') {
+                console.log(`<link href="${style.getAttribute('href')}" rel="${style.getAttribute('rel')}">`);
+            } else if (style.nodeName === 'STYLE') {
+                console.log(`<style>${style.innerHTML}</style>`);
+            }
+        });
+*/
+
+        // 0番目のスタイルシートを取得する
+        // const stylesheet = document.styleSheets.item(0);
+        // スタイルシートに定義されたルールを取得する
+        // const ruless = stylesheet.cssRules;
+        // ルールの配列を反復処理する
+        // for (let i = 0; i < ruless.length; i++) {
+        //     const rule = ruless[i];
+        //     console.log(rule.selectorText);
+        // }
+
+        // 0番目のスタイルシートの中で、2番目のCSSルールを取得する
+        const rule = document.styleSheets.item(0).cssRules.item(2);
+        console.log(rule.cssText);
+
+        //セレクター名を取得する
+        var selectorname = document.styleSheets.item(0).cssRules.item(2).selectorText;
+        console.log(selectorname);
+
+
+
+
+
+
+
 
         function addItems(code, name, ListviewMarket, benefit, evalu) {
             const ul = document.getElementById("myList");
@@ -43,7 +77,7 @@
             const items = [
                 {
                     type: "div",
-                    style: " width: 60px;border- radius: 50 %;background: purple;text - align: center;line - height: 60px;",
+                    style: rule.styles,//" width: 60px;border- radius: 50 %;background: purple;text - align: center;line - height: 60px;",
                     content: "code Name.",
                     dynamicVar: code
                 },

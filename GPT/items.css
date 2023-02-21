@@ -44,8 +44,8 @@ body {
   height: 60px;
   position: absolute;
   border-radius: 50%;
-  background: purple;
+  background:yellow;
   text-align: center;
-  line-height: 60px;
+  line-height: 160px;
 
 }
