@@ -20,49 +20,78 @@
 
 
 <body>
-    <h2>My List</h2>
+    <div id="stocks_container">
+        <h1>StockCard</h1>
+        <div class="dey"></div>
+    </div>
+    <div id="average_container">
+
+        <label class="material-icons">trending_up</label>
+
+        <div class="Price-container">
+
+
+            <label class="dow_circle"></label>
+            <label>Dow Price:$&nbsp;</label>
+            <label id="dow-container"></label>
+            <br>
+            <a><span></span>The day before reshio:$&nbsp;</a>
+            <label id="dowreshio-container"></label>
+
+            <br>
+            <label class="circle"></label>
+            <label>Nikkei Price:￥</label>
+            <label id="nk-container"> </label>
+            <br>
+            <a><span></span>The day before reshio:￥</a>
+            <a id="nkreshio-container"></a>
+
+        </div>
+    </div>
+    <div id="market-container">
+        <label class="material-icons">currency_yen</label>
+        <div class="marketPrice-container">
+            <div><b><span id="Market">Market capitalization</span></b></div>
+            <label class="circle"></label>
+            <b>Market price:&nbsp;</b>
+            <label id="Market-price"></label>
+            <br>
+            <label>
+                <span1></span1>Profit(Gains):￥
+            </label>
+            <label id="profit"></label>
+            <label>
+                <span1></span1>Investment:￥
+            </label>
+            <label id="invest"></label>
+        </div>
+
+    </div>
+
+   
     <div id="listview-container">
         <ul id="myList">
 
 
         </ul>
     </div>
-    <button onclick="addItems(6758,'sony',2,3,4)">Add Items</button>
+    <button onclick="addItems('6758','sony',2,3,4)">Add Items</button>
 
 
 
     <script>
-        /*
-        var styleSheets = document.querySelectorAll('link[rel="stylesheet"], style');
-
-        const styles = document.querySelectorAll('link[rel="stylesheet"], style');
-        //console.log(styleSheets[2]); // "h1 { color: blue; font-size: 24px; }"
-        styles.forEach(style => {
-            if (style.nodeName === 'LINK') {
-                console.log(`<link href="${style.getAttribute('href')}" rel="${style.getAttribute('rel')}">`);
-            } else if (style.nodeName === 'STYLE') {
-                console.log(`<style>${style.innerHTML}</style>`);
-            }
-        });
-*/
-
-        // 0番目のスタイルシートを取得する
-        // const stylesheet = document.styleSheets.item(0);
-        // スタイルシートに定義されたルールを取得する
-        // const ruless = stylesheet.cssRules;
-        // ルールの配列を反復処理する
-        // for (let i = 0; i < ruless.length; i++) {
-        //     const rule = ruless[i];
-        //     console.log(rule.selectorText);
-        // }
-
         // 0番目のスタイルシートの中で、2番目のCSSルールを取得する
-        const rule = document.styleSheets.item(0).cssRules.item(2);
-        console.log(rule.cssText);
+        const rule = document.styleSheets.item(0).cssRules.item(5);
+        const code = rule.cssText;
+        const code_style = code.replace(/#code|{|}/g, "");
+        console.log(code_style);
 
         //セレクター名を取得する
-        var selectorname = document.styleSheets.item(0).cssRules.item(2).selectorText;
-        console.log(selectorname);
+        // var selectorname = document.styleSheets.item(0).cssRules.item(2).selectorText;
+        // console.log(selectorname);
+
+
+
 
 
 
@@ -77,8 +106,8 @@
             const items = [
                 {
                     type: "div",
-                    style: rule.styles,//" width: 60px;border- radius: 50 %;background: purple;text - align: center;line - height: 60px;",
-                    content: "code Name.",
+                    style: code_style,
+                    content: code,
                     dynamicVar: code
                 },
                 {
