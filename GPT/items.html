@@ -70,22 +70,25 @@
 
    
     <div id="listview-container">
-        <ul id="myList">
+        <div id="myList">
+           
 
 
-        </ul>
+        </div>
     </div>
-    <button onclick="addItems('6758','sony',2,3,4)">Add Items</button>
+    <button onclick="addItems('6758','sony','200',3,4)">Add Items</button>
 
 
 
     <script>
         // 0番目のスタイルシートの中で、2番目のCSSルールを取得する
-        const rule = document.styleSheets.item(0).cssRules.item(5);
+        const rule = document.styleSheets.item(0).cssRules.item(6);
         const code = rule.cssText;
         const code_style = code.replace(/#code|{|}/g, "");
         console.log(code_style);
 
+        var firstStyleSheetHref = document.styleSheets[0].ownerNode;
+        console.log(firstStyleSheetHref);
         //セレクター名を取得する
         // var selectorname = document.styleSheets.item(0).cssRules.item(2).selectorText;
         // console.log(selectorname);
@@ -111,23 +114,24 @@
                     dynamicVar: code
                 },
                 {
-                    type: "label",
-                    style: " width: 60px;background: purple;text - align: center;line - height: 60px;",
+                    type: "div",//Name
+                    style: " width: 160px;text - align: center;line - height: 60px;",
                     content: name,
                     dynamicVar: name
                 },
                 {
+                    type: "label",//Maket
+                    style: " width: 160px;text - align: center;line - height: 60px;",
+                    content: `Market price:`+`${ListviewMarket}`,
+                    dynamicVar: name
+                },
+                {
                     type: "div",
-                    style: "border: 1px solid blue; padding:" + `${ListviewMarket}px;`,
+                    style: "border: 1px solid blue; padding:" + `${benefit}px;`,
                     content: "This is a div element.",
                     dynamicVar: benefit
                 },
-                {
-                    type: "img",
-                    src: "https://picsum.photos/200",
-                    alt: "Random image",
-                    dynamicVar: evalu
-                },
+              
                 {
                     type: "p",
                     content: "This is a paragraph element.",

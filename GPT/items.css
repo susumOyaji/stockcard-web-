@@ -15,6 +15,7 @@ body {
   /*margin-right: -50%;*/
   transform: translate(-50%, -50%)
 }
+
 #stocks_container {
   display: flex;
   flex-direction: row;
@@ -23,7 +24,7 @@ body {
   border-radius: 0.25em;
   position: static;
   background: rgb(78, 78, 78);
- 
+
   width: 95%;
   text-align: center;
   font-weight: bold;
@@ -34,13 +35,14 @@ body {
   /*font-size:16px;*/
   /*line-height:small;*/
 }
+
 #average_container {
   display: flex;
   flex-direction: row;
   flex-wrap: nowrap;
   /*親要素*/
   border-radius: 0.25em;
-  
+
   background: rgb(78, 78, 78);
   height: 95px;
   width: 95%;
@@ -53,6 +55,7 @@ body {
   /*font-size:16px;*/
   /*line-height:small;*/
 }
+
 #market-container {
   display: flex;
   flex-direction: row;
@@ -82,28 +85,44 @@ body {
   /*親要素*/
   border-radius: 0.25em;
   /*position: static;*/
-  background:gray;
+  background: gray;
   height: 150px;
   /*width: 95%;*/
   /*text-align: left;*/
   /*font-weight: bold;*/
   /*margin: 0 auto;*/
-  margin: 15px;
+  margin: 50px;
   /*box-sizing: border-box;*/
-  overflow-y: auto; /* 必要なときだけ縦方向のスクロールバーを表示 */
+  overflow-y: auto;
+  /* 必要なときだけ縦方向のスクロールバーを表示 */
   /*padding: 5px 5px 5px;*/
   /* [上]、[左右]、[下]の順に余白を指定 */
   /*font-size: 16px;*/
   /*line-height: small;*/
 
 }
+
+#myList {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  border-radius: 0.25em;
+  /*親要素*/
+  border-radius: 0.25em;
+  background: dimgrey;
+  width: 100%;
+  margin: 20px;
+  border: 1px solid black;
+  padding: 10px;
+}
+
 #code {
   display: inline-block;
   width: 60px;
   height: 60px;
   /*position: absolute;*/
   border-radius: 50%;
-  background:purple;
+  background: purple;
   text-align: center;
   line-height: 60px;
 }
