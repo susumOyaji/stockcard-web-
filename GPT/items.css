@@ -8,7 +8,7 @@ body {
   border-radius: 1em;
   padding: 1em;
   position: absolute;
-  width: 45%;
+  width: 50%;
 
   top: 50%;
   left: 50%;
@@ -79,14 +79,14 @@ body {
 
 #listview-container {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   flex-wrap: nowrap;
   border-radius: 0.25em;
   /*親要素*/
   border-radius: 0.25em;
   /*position: static;*/
-  background: gray;
-  height: 150px;
+  background:white;
+  height: 250px;
   /*width: 95%;*/
   /*text-align: left;*/
   /*font-weight: bold;*/
@@ -110,7 +110,7 @@ body {
   /*親要素*/
   border-radius: 0.25em;
   background: dimgrey;
-  width: 100%;
+  width: 80%;
   margin: 20px;
   border: 1px solid black;
   padding: 10px;

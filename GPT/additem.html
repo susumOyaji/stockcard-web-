@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ja">
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width" />
+    <link rel="shortcut icon" href="data:image/x-icon;," type="image/x-icon">
+    <link rel="stylesheet" type="text/css" href="items.css" />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+    <title>StockCard(Web)-Node.js</title>
+    <style>
+        html {
+            background-color: gray;
+        }
+    </style>
+
+
+</head>
+
+<body>
+    <div id="listview-container">
+        <div id="element">Testing</div>
+    </div>
+
+    <script>
+          rule = document.styleSheets.item(0).cssRules.item(6);
+        const code = rule.cssText;
+        const code_style = code.replace(/#code|{|}/g, "");
+
+        var el = document.getElementById('element');
+        var body = document.getElementsByTagName('body');
+        el.innerHTML = '<p><a id="clickme" href="#">Click me</a></p>';
+        document.getElementById('clickme').onclick = function (e) {
+            e.preventDefault();
+            document.body.innerHTML += code_style;//'<div style="position:absolute;width:100%;height:100%;opacity:0.3;z-index:100;background:#000;"></div>';
+        }
+    </script>
+
+</body>
+
+</html>
