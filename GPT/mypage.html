@@ -123,35 +123,66 @@
                 listItem.setAttribute("style", item.style);
             }
             listView.appendChild(listItem);
-            
+
             //listItem = document.createElement("div");
         });
 
-        // ランダムなアイテム名を生成する
-        var itemName = "Item " + Math.floor(Math.random() * 100);
-
-        // 新しいアイテムを作成する
-        var newItem = document.createElement("li");
-        newItem.textContent = itemName;
-
-        // アイテムに一意のIDを割り当てる
-        newItem.id = "item-" + Math.floor(Math.random() * 100);
-
-        // アイテムにCSSクラスを追加する
-        newItem.classList.add("item");
-
-        // アイテムをリストに追加する
-        document.getElementById("myList").appendChild(newItem);
 
 
+        < !DOCTYPE html >
+            <html>
+                <head>
+                    <title>HTMLをJavaScriptで生成する</title>
+                </head>
+                <body>
+                    <div id="myDiv"></div>
+                    <script>
+      // HTMLの要素を生成する
+                        var div = document.createElement("div");
+                        var h1 = document.createElement("h1");
+                        var p = document.createElement("p");
 
+                        // 要素にテキストを追加する
+                        h1.textContent = "Hello World!";
+                        p.textContent = "This is an example of generating HTML with JavaScript.";
 
+                        // 要素をdivに追加する
+                        div.appendChild(h1);
+                        div.appendChild(p);
 
-        // 初期化
-        //addListViewItem("Item 1");
-        //addListViewItem("Item 2");
-        //addListViewItem("Item 3");
+                        // divをHTMLのbody要素に追加する
+                        document.getElementById("myDiv").appendChild(div);
     </script>
+</body>
+
+</html>
+
+
+// ランダムなアイテム名を生成する
+var itemName = "Item " + Math.floor(Math.random() * 100);
+
+// 新しいアイテムを作成する
+var newItem = document.createElement("li");
+newItem.textContent = itemName;
+
+// アイテムに一意のIDを割り当てる
+newItem.id = "item-" + Math.floor(Math.random() * 100);
+
+// アイテムにCSSクラスを追加する
+newItem.classList.add("item");
+
+// アイテムをリストに追加する
+document.getElementById("myList").appendChild(newItem);
+
+
+
+
+
+// 初期化
+//addListViewItem("Item 1");
+//addListViewItem("Item 2");
+//addListViewItem("Item 3");
+</script>
 
 
 </body>
