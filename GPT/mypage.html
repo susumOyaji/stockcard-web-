@@ -1,31 +1,159 @@
 <!DOCTYPE html>
 <html lang="ja">
-    
-<div id="listview-container">
 
-    <div class="Code-circle">
-        <div id="code"></div>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width" />
+    <link rel="shortcut icon" href="data:image/x-icon;," type="image/x-icon">
+    <link rel="stylesheet" type="text/css" href="items.css" />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+    <title>StockCard(Web)-Node.js</title>
+
+    <title>ListView Sample</title>
+
+</head>
+
+
+
+<style>
+    html {
+        background-color: grey;
+    }
+
+    #listview-container {
+        display: flex;
+        flex-direction: column;
+        flex-wrap: nowrap;
+        border-radius: 0.25em;
+        /*親要素*/
+        border-radius: 0.25em;
+        /*position: static;*/
+        /*background: white;*/
+        height: 200px;
+        /*width: 95%;*/
+        /*text-align: left;*/
+        /*font-weight: bold;*/
+        /*margin: 0 auto;*/
+        margin: 50px;
+        /*box-sizing: border-box;*/
+        overflow-y: auto;
+        /* 必要なときだけ縦方向のスクロールバーを表示 */
+        /*padding: 5px 5px 5px;*/
+        /* [上]、[左右]、[下]の順に余白を指定 */
+        /*font-size: 16px;*/
+        /*line-height: small;*/
+    }
+
+    #listView {
+        display: flex;
+        flex-direction: column;
+        background-color: #eee;
+        padding: 10px;
+
+    }
+
+    .listItem {
+        background-color: #fff;
+        padding: 10px;
+        border-radius: 5px;
+        margin-bottom: 5px;
+        overflow-y: auto;
+    }
+
+    .listItem:hover {
+        background-color: #ddd;
+        cursor: pointer;
+    }
+
+    #myList {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        border-radius: 0.25em;
+        /*親要素*/
+        border-radius: 0.25em;
+        background: dimgrey;
+        width: 80%;
+        margin: 20px;
+        border: 1px solid black;
+        padding: 10px;
+    }
+
+    #code {
+        display: inline-block;
+        width: 60px;
+        height: 60px;
+        /*position: absolute;*/
+        border-radius: 50%;
+        background: purple;
+        text-align: center;
+        line-height: 60px;
+    }
+</style>
+
+
+
+<body>
+    <div id="listview-container">
+        <div id="listView"></div>
     </div>
 
-    <div class="Market">
-        <label id="Name"></label>
-        <br>
-        <label>Market:</label>
-        <label id="ListviewMarket"></label>
-        <label>
-            <span1></span1>Benefits:
-        </label>
-        <label id="benefit"></label>
-        <br>
-        <label>Evaluation:</label>
-        <label id="evalu"></label>
+    <script>
+        const listView = document.getElementById("listView");
 
-    </div>
+        const items = [
+            {
+                type: "div",
+                style: " width: 50px;text - align: center;line - height: 50px;border-radius: 50%;background: purple;",
+                text: "Item 1",
+                value: 1
+            },
+            { text: "Item 2", value: 2 },
+            { text: "Item 3", value: 3 },
+            { text: "Item 4", value: 4 },
+            { text: "Item 5", value: 5 }
+        ];
+
+        items.forEach(item => {
+            const listItem = document.createElement("div");
+            listItem.classList.add("listItem");
+            listItem.textContent = item.text;
+            if (item.style) {
+                listItem.setAttribute("style", item.style);
+            }
+            listView.appendChild(listItem);
+            
+            //listItem = document.createElement("div");
+        });
+
+        // ランダムなアイテム名を生成する
+        var itemName = "Item " + Math.floor(Math.random() * 100);
+
+        // 新しいアイテムを作成する
+        var newItem = document.createElement("li");
+        newItem.textContent = itemName;
+
+        // アイテムに一意のIDを割り当てる
+        newItem.id = "item-" + Math.floor(Math.random() * 100);
+
+        // アイテムにCSSクラスを追加する
+        newItem.classList.add("item");
+
+        // アイテムをリストに追加する
+        document.getElementById("myList").appendChild(newItem);
 
 
-    <button id="previous" type="button"></button>
 
 
-</div>
+
+        // 初期化
+        //addListViewItem("Item 1");
+        //addListViewItem("Item 2");
+        //addListViewItem("Item 3");
+    </script>
+
+
+</body>
 
 </html>
