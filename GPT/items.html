@@ -23,6 +23,9 @@
 
     
     <div id="listview-container">
+        <div id="code">
+
+        </div>
         <div id="myList">
             
         </div>
@@ -50,10 +53,11 @@
 
 
 
-        function addItems(code, name, ListviewMarket, benefit, evalu) {
-            const ul = document.getElementById("myList");
+        //function addItems(code, name, ListviewMarket, benefit, evalu) {
+            const ul = document.getElementById("listview-container");
             //ul.style.styles;
             const items = [
+               
                 {
                     type: "div",
                     style: code_style,
@@ -61,28 +65,31 @@
                     dynamicVar: code
                 },
                 {
-                    type: "div",//Name
+                    type: "label",//Name
                     style: " width: 160px;text - align: center;line - height: 60px;",
                     content: name,
                     dynamicVar: name
                 },
                 {
+                    type: "br",
+                },
+                {
                     type: "label",//Maket
                     style: " width: 160px;text - align: center;line - height: 60px;",
-                    content: `Market price:` + `${ListviewMarket}`,
+                    content: "Market price:",//`Market price:` + `${ListviewMarket}`,
                     dynamicVar: name
                 },
                 {
                     type: "div",
-                    style: "border: 1px solid blue; padding:" + `${benefit}px;`,
+                    style: "border: 1px solid blue; padding:",// + `${benefit}px;`,
                     content: "This is a div element.",
-                    dynamicVar: benefit
+                    dynamicVar: "benefit"
                 },
 
                 {
                     type: "p",
                     content: "This is a paragraph element.",
-                    dynamicVar: evalu
+                    dynamicVar: "evalu"
                 }
             ];
 
@@ -108,7 +115,7 @@
                 }
                 ul.appendChild(element);
             });
-        }
+        //}
 
 
     </script>

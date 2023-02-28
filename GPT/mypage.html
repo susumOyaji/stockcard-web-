@@ -98,7 +98,8 @@
     <div id="listview-container">
         <div id="listView"></div>
     </div>
-
+    <div id="myDiv"></div>
+    <div id="myList"></div>
     <script>
         const listView = document.getElementById("listView");
 
@@ -106,13 +107,34 @@
             {
                 type: "div",
                 style: " width: 50px;text - align: center;line - height: 50px;border-radius: 50%;background: purple;",
-                text: "Item 1",
+                text: "6758",
                 value: 1
             },
-            { text: "Item 2", value: 2 },
-            { text: "Item 3", value: 3 },
-            { text: "Item 4", value: 4 },
-            { text: "Item 5", value: 5 }
+            {
+                type: "label",//Name
+                style: " width: 160px;text - align: center;line - height: 60px;",
+                content: 'Sony',
+                dynamicVar: 'sony'
+            },
+            {
+                type: "label",//Maket
+                style: " width: 160px;text - align: center;line - height: 60px;",
+                content: 'Market price:',
+                dynamicVar: name
+            },
+            {
+                type: "div",
+                style: "border: 1px solid blue; padding:",
+                content: "This is a div element.",
+                dynamicVar: 'benefit'
+            },
+
+            {
+                type: "p",
+                content: "This is a paragraph element.",
+                dynamicVar: 'evalu'
+            }
+
         ];
 
         items.forEach(item => {
@@ -122,57 +144,75 @@
             if (item.style) {
                 listItem.setAttribute("style", item.style);
             }
-            listView.appendChild(listItem);
+            if (item.content) {
+                listItem.textContent = item.content;
+            }
+            //listView.appendChild(listItem);
 
             //listItem = document.createElement("div");
         });
 
 
 
-        < !DOCTYPE html >
-            <html>
-                <head>
-                    <title>HTMLをJavaScriptで生成する</title>
-                </head>
-                <body>
-                    <div id="myDiv"></div>
-                    <script>
-      // HTMLの要素を生成する
-                        var div = document.createElement("div");
-                        var h1 = document.createElement("h1");
-                        var p = document.createElement("p");
-
-                        // 要素にテキストを追加する
-                        h1.textContent = "Hello World!";
-                        p.textContent = "This is an example of generating HTML with JavaScript.";
-
-                        // 要素をdivに追加する
-                        div.appendChild(h1);
-                        div.appendChild(p);
-
-                        // divをHTMLのbody要素に追加する
-                        document.getElementById("myDiv").appendChild(div);
-    </script>
-</body>
-
-</html>
 
 
-// ランダムなアイテム名を生成する
-var itemName = "Item " + Math.floor(Math.random() * 100);
+        /*
+                // HTMLの要素を生成する
+                var div = document.createElement("div");
+                var h1 = document.createElement("h1");
+                var p = document.createElement("p");
+        
+                // 要素にテキストを追加する
+                h1.textContent = "Hello World!";
+                p.textContent = "This is an example of generating HTML with JavaScript.";
+        
+                // 要素をdivに追加する
+                div.appendChild(h1);
+                div.appendChild(p);
+        
+                // divをHTMLのbody要素に追加する
+                document.getElementById("myDiv").appendChild(div);
+        
+        
+        
+        
+        */
+        // div要素を生成する
+        var div = document.createElement("div");
+        // 新しいdiv要素にid属性を設定する
+        div.setAttribute("id", "listview-container-inn");
 
-// 新しいアイテムを作成する
-var newItem = document.createElement("li");
-newItem.textContent = itemName;
+        // 追加するタグのHTML文字列を生成する
+        //var html = '<h1>Title</h1><p>Paragraph 1</p><p>Paragraph 2</p>';
+        var html = '<div class="Code-circle"><div id="code"></div></div>';
 
-// アイテムに一意のIDを割り当てる
-newItem.id = "item-" + Math.floor(Math.random() * 100);
+        // div要素にHTML文字列を追加する
+        div.insertAdjacentHTML('beforeend', html);
 
-// アイテムにCSSクラスを追加する
-newItem.classList.add("item");
+        // body要素に追加する
+        document.body.appendChild(div);
 
-// アイテムをリストに追加する
-document.getElementById("myList").appendChild(newItem);
+
+        // 親要素のdiv要素を取得する
+        var parentDiv = document.getElementById("listview-container-inn");
+
+        var Marketdiv = document.createElement("div");
+        var Markethtml = '<div id="Market">';
+        // 親要素のdiv要素にHTML文字列を追加する
+        Marketdiv.insertAdjacentHTML('beforeend', Markethtml);
+
+        // 親要素の要素に追加する
+        parentDiv.appendChild(Marketdiv);
+
+
+        var NameDiv = document.getElementById("Market");
+        var Namelabeldiv = document.createElement("div");
+        var Namehtml = '<label id="Name"></label><br><label>Market:</label><label id="ListviewMarket"></label><label><span1></span1>Benefits:</label><label id="benefit"></label><br><label>Evaluation:</label><label id="evalu"></label></div>';
+        // div要素にHTML文字列を追加する
+        Namelabeldiv.insertAdjacentHTML('beforeend', Namehtml);
+        // body要素に追加する
+        NameDiv.appendChild(Namelabeldiv);
+
 
 
 
@@ -182,7 +222,7 @@ document.getElementById("myList").appendChild(newItem);
 //addListViewItem("Item 1");
 //addListViewItem("Item 2");
 //addListViewItem("Item 3");
-</script>
+    </script>
 
 
 </body>
