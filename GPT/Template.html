@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width" />
+    <link rel="shortcut icon" href="data:image/x-icon;," type="image/x-icon">
+    <link rel="stylesheet" type="text/css" href="items.css" />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+    <title>StockCard(Web)-Node.js</title>
+    <style>
+        html {
+            background-color: rgb(240, 240, 240);
+        }
+    </style>
+    <title>ListView Sample</title>
+
+</head>
+
+<body>
+    <h4>項目1</h4>
+    <p><input type="text" name="text1" size="30" /></p>
+    <div id="item2"></div>
+
+    <p><input type="button" value="項目を追加する" onClick="ItemField.add();" /></p>
+    <p><input type="button" value="項目を削除する" onClick="ItemField.remove();" /></p>
+    
+    
+    
+    <script>
+
+        const str = '__count__ is the number of occurrences of __count__ in this string.';
+        const count = (str.match(/__count__/mg) || []).length;
+        console.log(count); // 2
+
+
+        var ItemField = {
+            currentNumber: 1,
+            //itemTemplate: '<iframe src="temp.html"></iframe>',
+            itemTemplate: '<h3>項目__count__<h3/> ' + '<p><input type="text" name="text__count__" size="30" /></p>',
+            add: function () {
+                this.currentNumber++;
+
+                var field = document.getElementById('item' + this.currentNumber);
+
+                var newItem = this.itemTemplate.replace(/__count__/mg, this.currentNumber);
+                field.innerHTML = newItem;
+
+                var nextNumber = this.currentNumber + 1;
+                var new_area = document.createElement("div");
+                new_area.setAttribute("id", "item" + nextNumber);
+                field.appendChild(new_area);
+            },
+            remove: function () {
+                if (this.currentNumber == 1) { return; }
+
+                var field = document.getElementById('item' + this.currentNumber);
+                field.removeChild(field.lastChild);
+                field.innerHTML = '';
+
+                this.currentNumber--;
+            }
+        }
+    </script>
+    
+    <form>
+        <script type="text/javascript" src="/scripts/field.js"></script>
+        <script type="text/javascript">
+            ItemField.currentNumber = 1;
+            ItemField.itemTemplate = '<h4>追加項目__count__</h4>' + '<p><input type="text" name="text__count__" size="30" /></p>';
+        </script>
+
+
+        
+    </form>
+</body>
+
+</html>

@@ -53,7 +53,7 @@
 
 
 
-        //function addItems(code, name, ListviewMarket, benefit, evalu) {
+        function addItems(code, name, ListviewMarket, benefit, evalu) {
             const ul = document.getElementById("listview-container");
             //ul.style.styles;
             const items = [
@@ -62,7 +62,8 @@
                     type: "div",
                     style: code_style,
                     content: code,
-                    dynamicVar: code
+                    dynamicVar: code,
+                    html:'<div class="Code-circle"><div id="code"></div></div>'
                 },
                 {
                     type: "label",//Name
@@ -107,6 +108,9 @@
                 if (item.alt) {
                     element.alt = item.alt;
                 }
+                if (item.html) {
+                    element.html = item.html;
+                }
                 if (item.dynamicVar) {
                     element.setAttribute("data-dynamic-var", item.dynamicVar);
                     element.addEventListener("click", function () {
@@ -115,7 +119,7 @@
                 }
                 ul.appendChild(element);
             });
-        //}
+        }
 
 
     </script>
