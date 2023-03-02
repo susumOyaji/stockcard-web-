@@ -102,19 +102,7 @@ body {
 
 }
 
-#myList {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: nowrap;
-  border-radius: 0.25em;
-  /*親要素*/
-  border-radius: 0.25em;
-  background: dimgrey;
-  width: 80%;
-  margin: 20px;
-  border: 1px solid black;
-  padding: 10px;
-}
+
 
 .item {
   display: flex;
@@ -130,12 +118,12 @@ body {
   /*display: inline-block;*/
   padding: 15px 15px 15px 1px;
   /* [上]、[左右]、[下]の順に余白を指定 */
-  width: 80px;
+  width: 50px;
   height: 80px;
 
  
 }
-#code {
+.code {
   display: inline-block;
   width: 60px;
   height: 60px;
