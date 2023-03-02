@@ -19,21 +19,18 @@
 </head>
 
 <body>
-    <h4>項目1</h4>
-    <p><input type="text" name="text1" size="30" /></p>
-    <div id="item2"></div>
-
+    <div id="listview-container"></div>
+  
     <p><input type="button" value="項目を追加する" onClick="ItemField.add();" /></p>
     <p><input type="button" value="項目を削除する" onClick="ItemField.remove();" /></p>
-    
-    
-    
+
+
+
     <script>
 
-        const str = '__count__ is the number of occurrences of __count__ in this string.';
-        const count = (str.match(/__count__/mg) || []).length;
-        console.log(count); // 2
-
+        //const str = '__count__ is the number of occurrences of __count__ in this string.';
+        //const count = (str.match(/__count__/mg) || []).length;
+        //console.log(count); // 2
 
         var ItemField = {
             currentNumber: 1,
@@ -42,20 +39,41 @@
             add: function () {
                 this.currentNumber++;
 
-                var field = document.getElementById('item' + this.currentNumber);
+                // ランダムなアイテム名を生成する
+                var itemName = "Item " + this.currentNumber;//Math.floor(Math.random() * 100);
+
+                // 新しいアイテムを作成する
+                var newItem = document.createElement("div");
+                newItem.innerHTML = '<div class="Code-circle"><div id="code"></div><div class="Market"><label id="Name"></label><br><label>Market:</label><label id="ListviewMarket"></label><label><span1></span1>Benefits:</label><label id="benefit"></label><br><label>Evaluation:</label><label id="evalu"></label></div>';//itemName;
+
+
+
+                // アイテムに一意のIDを割り当てる
+                newItem.id = "item-" + this.currentNumber;//Math.floor(Math.random() * 100);
+
+                // Newアイテムにitemクラスを追加する class="item"
+                newItem.classList.add("item");
+
+                // アイテムをリストに追加する
+                document.getElementById("listview-container").appendChild(newItem);
+
+
+
+
+                var field = document.getElementById('listview-container' + this.currentNumber);
 
                 var newItem = this.itemTemplate.replace(/__count__/mg, this.currentNumber);
-                field.innerHTML = newItem;
+                //field.innerHTML = "";//newItem;
 
                 var nextNumber = this.currentNumber + 1;
                 var new_area = document.createElement("div");
-                new_area.setAttribute("id", "item" + nextNumber);
+                new_area.setAttribute("id", "listview-container" + nextNumber);
                 field.appendChild(new_area);
             },
             remove: function () {
                 if (this.currentNumber == 1) { return; }
 
-                var field = document.getElementById('item' + this.currentNumber);
+                var field = document.getElementById('listview-container' + this.currentNumber);
                 field.removeChild(field.lastChild);
                 field.innerHTML = '';
 
@@ -63,7 +81,7 @@
             }
         }
     </script>
-    
+
     <form>
         <script type="text/javascript" src="/scripts/field.js"></script>
         <script type="text/javascript">
@@ -72,7 +90,7 @@
         </script>
 
 
-        
+
     </form>
 </body>
 
