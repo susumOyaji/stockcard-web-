@@ -20,7 +20,7 @@
 
 <body>
     <div id="listview-container"></div>
-  
+
     <p><input type="button" value="項目を追加する" onClick="ItemField.add();" /></p>
     <p><input type="button" value="項目を削除する" onClick="ItemField.remove();" /></p>
 
@@ -31,21 +31,108 @@
         //const str = '__count__ is the number of occurrences of __count__ in this string.';
         //const count = (str.match(/__count__/mg) || []).length;
         //console.log(count); // 2
+        function ItemField1() {
+            var currentNumber = 0;
+            var itemTemplate = '<div class="Code-circle"><div class="code"></div> </div>'
+                + '<div class="Market"><label id="Name__count__"></label><br>'
+                + '<label>Market:</label><label id="ListviewMarket__count__"></label>'
+                + '<label><span1></span1>Benefits:</label><label id="benefit__count__"></label><br>'
+                + '<label>Evaluation:</label><label id="evalu__count__"></label></div>';
 
-        var ItemField = {
-            currentNumber: 1,
-            //itemTemplate: '<iframe src="temp.html"></iframe>',
-            itemTemplate: '<h3>項目__count__<h3/> ' + '<p><input type="text" name="text__count__" size="30" /></p>',
-            add: function () {
-                this.currentNumber++;
+            this.add = function (name, market, benefits, evaluation) {
+                currentNumber++;
 
-                // ランダムなアイテム名を生成する
-                var itemName = "Item " + this.currentNumber;//Math.floor(Math.random() * 100);
 
                 // 新しいアイテムを作成する
                 var newItem = document.createElement("div");
-                newItem.innerHTML = '<div class="Code-circle"><div class="code"></div> </div><div class="Market"><label id="Name"></label><br><label>Market:</label><label id="ListviewMarket"></label><label><span1></span1>Benefits:</label><label id="benefit"></label><br><label>Evaluation:</label><label id="evalu"></label></div>';//itemName;
 
+                var addItem = itemTemplate.replace(/__count__/mg, currentNumber);
+                newItem.innerHTML = addItem;
+
+
+                // アイテムに一意のIDを割り当てる
+                newItem.id = "item-" + currentNumber;//Math.floor(Math.random() * 100);
+
+                // Newアイテムにitemクラスを追加する class="item"
+                newItem.classList.add("item");
+
+                // アイテムをリストに追加する
+                document.getElementById("listview-container").appendChild(newItem);
+
+
+
+
+
+                var Id = document.getElementById(newItem.id);
+                console.log(Id);
+
+
+                var Name = document.getElementById("Name" + currentNumber);
+                console.log(Name);
+                Name.innerHTML = name;
+
+
+
+                var Market = document.getElementById("ListviewMarket" + currentNumber);
+                console.log(Market);
+                Market.innerHTML = market;
+
+
+                var Benefits = document.getElementById("benefit" + currentNumber);
+                console.log(Benefits);
+                Benefits.innerHTML = benefits;
+
+                var Evaluation = document.getElementById("evalu" + currentNumber);
+                console.log(Evaluation);
+                Evaluation.innerHTML = evaluation;
+
+            };
+            this.remove = function () {
+                if (currentNumber == 1) { return; }
+
+                var field = document.getElementById('item-'+ currentNumber);
+                field.removeChild(field.lastChild);
+                field.innerHTML = '';
+
+                currentNumber--;
+                // remove処理
+            };
+        }
+
+        var myItemField = new ItemField1();
+        myItemField.add("Sony222", "2000", "3000", "4000");
+        myItemField.add("Sony111", "1000", "2000", "3000");
+        myItemField.remove();
+
+
+
+
+
+
+
+
+
+
+
+
+
+        var ItemField = {
+            currentNumber: 3,
+            itemTemplate: '<div class="Code-circle"><div class="code"></div> </div>'
+                + '<div class="Market"><label id="Name__count__"></label><br>'
+                + '<label>Market:</label><label id="ListviewMarket__count__"></label>'
+                + '<label><span1></span1>Benefits:</label><label id="benefit__count__"></label><br>'
+                + '<label>Evaluation:</label><label id="evalu__count__"></label></div>',
+
+            add: function (name, market, benefits, evaluation) {
+                this.currentNumber++;
+
+
+                // 新しいアイテムを作成する
+                var newItem = document.createElement("div");
+
+                var addItem = this.itemTemplate.replace(/__count__/mg, this.currentNumber);
+                newItem.innerHTML = addItem;
 
 
                 // アイテムに一意のIDを割り当てる
@@ -56,6 +143,34 @@
 
                 // アイテムをリストに追加する
                 document.getElementById("listview-container").appendChild(newItem);
+
+
+
+
+
+
+                var Id = document.getElementById(newItem.id);
+                console.log(Id);
+
+
+                var Name = document.getElementById("Name" + this.currentNumber);
+                console.log(Name);
+                Name.innerHTML = name;
+
+
+
+                var Market = document.getElementById("ListviewMarket" + this.currentNumber);
+                console.log(Market);
+                Market.innerHTML = market;
+
+
+                var Benefits = document.getElementById("benefit" + this.currentNumber);
+                console.log(Benefits);
+                Benefits.innerHTML = benefits;
+
+                var Evaluation = document.getElementById("evalu" + this.currentNumber);
+                console.log(Evaluation);
+                Evaluation.innerHTML = evaluation;
 
 
 
@@ -80,18 +195,19 @@
                 this.currentNumber--;
             }
         }
+        ItemField.add("Sony444", "1000", "2000", "3000");
+        ItemField.add("Sony333", "3000", "4000", "5000");
+
+
+
+
+
+
+
+
     </script>
 
-    <form>
-        <script type="text/javascript" src="/scripts/field.js"></script>
-        <script type="text/javascript">
-            ItemField.currentNumber = 1;
-            ItemField.itemTemplate = '<h4>追加項目__count__</h4>' + '<p><input type="text" name="text__count__" size="30" /></p>';
-        </script>
 
-
-
-    </form>
 </body>
 
 </html>
