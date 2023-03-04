@@ -234,24 +234,16 @@ span {
   flex-wrap: nowrap;
   color: white;
   font-weight: bold;
-  background: grey;
+  background: rgb(78, 78, 78);
   border-radius: 0.25em;
   margin: 10px;
-}
-.Code-circle {
-  /*display: inline-block;*/
-  padding: 15px 15px 15px 1px;
-  /* [上]、[左右]、[下]の順に余白を指定 */
-  width: 50px;
-  height: 80px;
-
  
 }
 .Code-circle {
   /*display: inline-block;*/
   padding: 15px 15px 15px 1px;
   /* [上]、[左右]、[下]の順に余白を指定 */
-  width: 80px;
+  width: 50px;
   height: 80px;
 
  
