@@ -21,8 +21,8 @@
 <body>
     <div id="listview-container"></div>
 
-    <p><input type="button" value="項目を追加する" onClick="ItemField.add();" /></p>
-    <p><input type="button" value="項目を削除する" onClick="ItemField.remove();" /></p>
+    <p><input type="button" value="項目を追加する" onClick="myItemField.add();" /></p>
+    <p><input type="button" value="項目を削除する" onClick="myItemField.remove();" /></p>
 
 
 
@@ -31,15 +31,17 @@
         //const str = '__count__ is the number of occurrences of __count__ in this string.';
         //const count = (str.match(/__count__/mg) || []).length;
         //console.log(count); // 2
+       
         function ItemField1() {
             var currentNumber = 0;
-            var itemTemplate = '<div class="Code-circle"><div class="code"></div> </div>'
+            var itemTemplate = '<div class="Code-circle"><div class="Code" id="code__count__"></div> </div>'
                 + '<div class="Market"><label id="Name__count__"></label><br>'
                 + '<label>Market:</label><label id="ListviewMarket__count__"></label>'
                 + '<label><span1></span1>Benefits:</label><label id="benefit__count__"></label><br>'
-                + '<label>Evaluation:</label><label id="evalu__count__"></label></div>';
+                + '<label>Evaluation:</label><label id="evalu__count__"></label></div>'
+                + '<button class="Button" id="previous__count__" type="button">btn</button>';
 
-            this.add = function (name, market, benefits, evaluation) {
+            this.add = function (name, market, benefits, evaluation, button) {
                 currentNumber++;
 
 
@@ -67,6 +69,10 @@
                 console.log(Id);
 
 
+                var Code = document.getElementById("code" + currentNumber);
+                console.log(Code);
+                Code.innerHTML = name;
+
                 var Name = document.getElementById("Name" + currentNumber);
                 console.log(Name);
                 Name.innerHTML = name;
@@ -86,11 +92,19 @@
                 console.log(Evaluation);
                 Evaluation.innerHTML = evaluation;
 
+                var Previous = document.getElementById("previous" + currentNumber);
+                console.log(Previous);
+                Previous.innerHTML = button;
+                Previous.addEventListener("click", function () {
+                    alert("ボタンがクリックされました！"+Previous.id);
+                }); // ボタンにonclickイベントを設定
+
+
             };
             this.remove = function () {
                 if (currentNumber == 1) { return; }
 
-                var field = document.getElementById('item-'+ currentNumber);
+                var field = document.getElementById('item-' + currentNumber);
                 field.removeChild(field.lastChild);
                 field.innerHTML = '';
 
@@ -100,9 +114,9 @@
         }
 
         var myItemField = new ItemField1();
-        myItemField.add("Sony222", "2000", "3000", "4000");
-        myItemField.add("Sony111", "1000", "2000", "3000");
-        myItemField.remove();
+        myItemField.add("6758", "2000", "3000", "4000", "Button1");
+        myItemField.add("Sony111", "1000", "2000", "3000", "Button2");
+        //myItemField.remove();
 
 
 
@@ -116,89 +130,98 @@
 
 
 
-        var ItemField = {
-            currentNumber: 3,
-            itemTemplate: '<div class="Code-circle"><div class="code"></div> </div>'
-                + '<div class="Market"><label id="Name__count__"></label><br>'
-                + '<label>Market:</label><label id="ListviewMarket__count__"></label>'
-                + '<label><span1></span1>Benefits:</label><label id="benefit__count__"></label><br>'
-                + '<label>Evaluation:</label><label id="evalu__count__"></label></div>',
-
-            add: function (name, market, benefits, evaluation) {
-                this.currentNumber++;
-
-
-                // 新しいアイテムを作成する
-                var newItem = document.createElement("div");
-
-                var addItem = this.itemTemplate.replace(/__count__/mg, this.currentNumber);
-                newItem.innerHTML = addItem;
-
-
-                // アイテムに一意のIDを割り当てる
-                newItem.id = "item-" + this.currentNumber;//Math.floor(Math.random() * 100);
-
-                // Newアイテムにitemクラスを追加する class="item"
-                newItem.classList.add("item");
-
-                // アイテムをリストに追加する
-                document.getElementById("listview-container").appendChild(newItem);
 
 
 
 
 
 
-                var Id = document.getElementById(newItem.id);
-                console.log(Id);
 
 
-                var Name = document.getElementById("Name" + this.currentNumber);
-                console.log(Name);
-                Name.innerHTML = name;
-
-
-
-                var Market = document.getElementById("ListviewMarket" + this.currentNumber);
-                console.log(Market);
-                Market.innerHTML = market;
-
-
-                var Benefits = document.getElementById("benefit" + this.currentNumber);
-                console.log(Benefits);
-                Benefits.innerHTML = benefits;
-
-                var Evaluation = document.getElementById("evalu" + this.currentNumber);
-                console.log(Evaluation);
-                Evaluation.innerHTML = evaluation;
-
-
-
-
-                var field = document.getElementById('listview-container' + this.currentNumber);
-
-                var newItem = this.itemTemplate.replace(/__count__/mg, this.currentNumber);
-                //field.innerHTML = "";//newItem;
-
-                var nextNumber = this.currentNumber + 1;
-                var new_area = document.createElement("div");
-                new_area.setAttribute("id", "listview-container" + nextNumber);
-                field.appendChild(new_area);
-            },
-            remove: function () {
-                if (this.currentNumber == 1) { return; }
-
-                var field = document.getElementById('listview-container' + this.currentNumber);
-                field.removeChild(field.lastChild);
-                field.innerHTML = '';
-
-                this.currentNumber--;
-            }
-        }
-        ItemField.add("Sony444", "1000", "2000", "3000");
-        ItemField.add("Sony333", "3000", "4000", "5000");
-
-
+        /*
+                var ItemField = {
+                    currentNumber: 3,
+                    itemTemplate: '<div class="Code-circle"><div class="code"></div> </div>'
+                        + '<div class="Market"><label id="Name__count__"></label><br>'
+                        + '<label>Market:</label><label id="ListviewMarket__count__"></label>'
+                        + '<label><span1></span1>Benefits:</label><label id="benefit__count__"></label><br>'
+                        + '<label>Evaluation:</label><label id="evalu__count__"></label></div>',
+        
+                    add: function (name, market, benefits, evaluation) {
+                        this.currentNumber++;
+        
+        
+                        // 新しいアイテムを作成する
+                        var newItem = document.createElement("div");
+        
+                        var addItem = this.itemTemplate.replace(/__count__/mg, this.currentNumber);
+                        newItem.innerHTML = addItem;
+        
+        
+                        // アイテムに一意のIDを割り当てる
+                        newItem.id = "item-" + this.currentNumber;//Math.floor(Math.random() * 100);
+        
+                        // Newアイテムにitemクラスを追加する class="item"
+                        newItem.classList.add("item");
+        
+                        // アイテムをリストに追加する
+                        document.getElementById("listview-container").appendChild(newItem);
+        
+        
+        
+        
+        
+        
+                        var Id = document.getElementById(newItem.id);
+                        console.log(Id);
+        
+        
+                        var Name = document.getElementById("Name" + this.currentNumber);
+                        console.log(Name);
+                        Name.innerHTML = name;
+        
+        
+        
+                        var Market = document.getElementById("ListviewMarket" + this.currentNumber);
+                        console.log(Market);
+                        Market.innerHTML = market;
+        
+        
+                        var Benefits = document.getElementById("benefit" + this.currentNumber);
+                        console.log(Benefits);
+                        Benefits.innerHTML = benefits;
+        
+                        var Evaluation = document.getElementById("evalu" + this.currentNumber);
+                        console.log(Evaluation);
+                        Evaluation.innerHTML = evaluation;
+        
+        
+        
+        
+                        var field = document.getElementById('listview-container' + this.currentNumber);
+        
+                        var newItem = this.itemTemplate.replace(/__count__/mg, this.currentNumber);
+                        //field.innerHTML = "";//newItem;
+        
+                        var nextNumber = this.currentNumber + 1;
+                        var new_area = document.createElement("div");
+                        new_area.setAttribute("id", "listview-container" + nextNumber);
+                        field.appendChild(new_area);
+                    },
+                    remove: function () {
+                        if (this.currentNumber == 1) { return; }
+        
+                        var field = document.getElementById('listview-container' + this.currentNumber);
+                        field.removeChild(field.lastChild);
+                        field.innerHTML = '';
+        
+                        this.currentNumber--;
+                    }
+                }
+                ItemField.add("Sony444", "1000", "2000", "3000");
+                ItemField.add("Sony333", "3000", "4000", "5000");
+        
+        */
 
 
 
