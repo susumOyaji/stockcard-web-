@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width" />
+    <link rel="shortcut icon" href="data:image/x-icon;," type="image/x-icon">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="index.css" />
+    <title>StockCard</title>
+    <style>
+        html {
+            background-color: rgb(240, 240, 240);
+        }
+    </style>
+</head>
+
+<body>
+    <canvas id="cv" width="360" height="100"></canvas>
+
+
+    <div id="stocks_container">
+        <h1>StockCard</h1>
+        <div id="dey"></div>
+    </div>
+    <div id="average_container">
+
+        <label class="material-icons">trending_up</label>
+
+        <div class="Price-container">
+
+
+            <label class="dow_circle"></label>
+            <label>Dow Price:$&nbsp;</label>
+            <label id="dow-container"></label>
+            <br>
+            <a><span></span>The day before reshio:$&nbsp;</a>
+            <label id="dowreshio-container"></label>
+
+            <br>
+            <label class="circle"></label>
+            <label>Nikkei Price:￥</label>
+            <label id="nk-container"> </label>
+            <br>
+            <a><span></span>The day before reshio:￥</a>
+            <a id="nkreshio-container"></a>
+
+        </div>
+    </div>
+
+
+    <div id="market-container">
+        <label class="material-icons">currency_yen</label>
+        <div class="marketPrice-container">
+            <div><b><span id="Market">Market capitalization</span></b></div>
+            <label class="circle"></label>
+            <b>Market price:&nbsp;</b>
+            <label id="Market-price"></label>
+            <br>
+            <label>
+                <span1></span1>Profit(Gains):￥
+            </label>
+            <label id="profit"></label>
+            <label>
+                <span1></span1>Investment:￥
+            </label>
+            <label id="invest"></label>
+        </div>
+
+    </div>
+
+    <div id="listview-container">
+
+        <div class="Code-circle">
+            <div id="code"></div>
+        </div>
+
+        <div class="Market">
+            <label id="Name"></label>
+            <br>
+            <label>Market:</label>
+            <label id="ListviewMarket"></label>
+            <label>
+                <span1></span1>Benefits:
+            </label>
+            <label id="benefit"></label>
+            <br>
+            <label>Evaluation:</label>
+            <label id="evalu"></label>
+
+        </div>
+
+
+        <button id="previous" type="button"></button>
+
+
+    </div>
+    <div id="target" class="red">ここにclassを追加することでスタイルを変更します</div>
+
+
+
+    <script>
+        //②配列リテラルの例
+        var sony = ['6758', 1665, 200];
+
+
+        //const ctx = $('cv')[0].getContext("2d");
+        var cvs = document.getElementById("cv");
+        var ctx = cvs.getContext("2d");
+
+        ctx.fillStyle = 'white';
+        ctx.strokeStyle = 'red';
+        ctx.lineWidth = 1;
+
+        // 角丸四角形  
+        fillRoundRect(ctx, 5, 10, 300, 50, 5);
+        //strokeRoundRect(ctx, 50, 100, 200, 100, 20);
+
+        // 吹き出し付き角丸四角形    
+        //fillBalloonRoundRect(ctx, 300, 100, 200, 100, 20, 30, 50, 50);
+        //strokeBalloonRoundRect(ctx, 300, 100, 200, 100, 20, 30, 50, 50);
+
+        //文字のスタイルを指定
+        //ctx.font = '1.2em "Fira Sans", monospace';//'20px serif';
+        //ctx.fillStyle = '#ffffff';
+        ctx.font = "0.5em sans-serif";
+        ctx.scale(2, 2);
+
+
+        //文字の配置を指定（左上基準にしたければtop/leftだが、文字の中心座標を指定するのでcenter
+        ctx.textBaseline = 'top';
+        ctx.textAlign = 'left';
+        //座標を指定して文字を描く（座標は画像の中心に）
+        var x = 8;//(cvs.width / 3);
+        var y = 5;//(cvs.height / 3);
+        ctx.fillText('StockCard', x, y);
+
+        /*
+        * 角が丸い四角形のパスを作成する
+        * @param  {CanvasRenderingContext2D} ctx コンテキスト
+        * @param  {Number} x   左上隅のX座標
+        * @param  {Number} y   左上隅のY座標
+        * @param  {Number} w   幅
+        * @param  {Number} h   高さ
+        * @param  {Number} r   半径
+        */
+        function createRoundRectPath(ctx, x, y, w, h, r) {
+            ctx.beginPath();
+            ctx.moveTo(x + r, y);
+
+            ctx.lineTo(x + w - r, y);//1
+            ctx.arc(x + w - r, y + r, r, Math.PI * (3 / 2), 0, false);
+
+            ctx.lineTo(x + w, y + h - r);//2
+            ctx.arc(x + w - r, y + h - r, r, 0, Math.PI * (1 / 2), false);
+
+            ctx.lineTo(x + w / 1.3 + r, y + h);//3
+            //ctx.arc(x + w / 2 + r, y + h / 2 - r, r, Math.PI * (1 / 2), Math.PI, false);
+
+            ctx.lineTo(x + w / 1.3 + r, y + h / 2);//4
+            //ctx.arc(x + w / 2 + r, y + h - r, r, Math.PI * (1 / 2), Math.PI, false);
+
+            ctx.lineTo(x + r, y + h / 2);//5
+            ctx.arc(x + r, y + h / 2 - r, r, Math.PI * (1 / 2), Math.PI, false);
+
+
+            ctx.lineTo(x, y + r);//6
+            ctx.arc(x + r, y + r, r, Math.PI, Math.PI * (3 / 2), false);
+
+            ctx.closePath();
+        }
+
+        /**
+         * 角が丸い四角形を塗りつぶす
+         * @param  {CanvasRenderingContext2D} ctx コンテキスト
+         * @param  {Number} x   左上隅のX座標
+         * @param  {Number} y   左上隅のY座標
+         * @param  {Number} w   幅
+         * @param  {Number} h   高さ
+         * @param  {Number} r   半径
+         */
+        function fillRoundRect(ctx, x, y, w, h, r) {
+            createRoundRectPath(ctx, x, y, w, h, r);
+            //ctx.fill();
+            ctx.stroke();
+        }
+
+        /**
+         * 角が丸い四角形を描画
+         * @param  {CanvasRenderingContext2D} ctx コンテキスト
+         * @param  {Number} x   左上隅のX座標
+         * @param  {Number} y   左上隅のY座標
+         * @param  {Number} w   幅
+         * @param  {Number} h   高さ
+         * @param  {Number} r   半径
+         */
+        function strokeRoundRect(ctx, x, y, w, h, r) {
+            createRoundRectPath(ctx, x, y, w, h, r);
+            ctx.stroke();
+        }
+
+        /**
+         * 角が丸い四角形の吹き出し(吹き出しは下側)のパスを作成する
+         * @param  {CanvasRenderingContext2D} ctx コンテキスト
+         * @param  {Number} x   左上隅のX座標
+         * @param  {Number} y   左上隅のY座標
+         * @param  {Number} w   幅
+         * @param  {Number} h   高さ
+         * @param  {Number} r   半径
+         * @param  {Number} bl  三角形の左上隅のX座標
+         * @param  {Number} br  三角形の右上隅のX座標
+         * @param  {Number} bh  三角形の高さ
+         */
+        function createBalloonRoundRectPath(ctx, x, y, w, h, r, bl, br, bh) {
+            ctx.beginPath();
+            ctx.moveTo(x + r, y);
+            ctx.lineTo(x + w - r, y);
+            ctx.arc(x + w - r, y + r, r, Math.PI * (3 / 2), 0, false);
+            ctx.lineTo(x + w, y + h - r);
+            ctx.arc(x + w - r, y + h - r, r, 0, Math.PI * (1 / 2), false);
+            ctx.lineTo(x + br, y + h);
+            ctx.lineTo(x + (br + bl) / 2, y + h + bh);
+            ctx.lineTo(x + bl, y + h);
+            ctx.lineTo(x + r, y + h);
+            ctx.arc(x + r, y + h - r, r, Math.PI * (1 / 2), Math.PI, false);
+            ctx.lineTo(x, y + r);
+            ctx.arc(x + r, y + r, r, Math.PI, Math.PI * (3 / 2), false);
+            ctx.closePath();
+        }
+
+        /**
+         * 角が丸い四角形の吹き出し(吹き出しは下側)を塗りつぶす
+         * @param  {CanvasRenderingContext2D} ctx コンテキスト
+         * @param  {Number} x   左上隅のX座標
+         * @param  {Number} y   左上隅のY座標
+         * @param  {Number} w   幅
+         * @param  {Number} h   高さ
+         * @param  {Number} r   半径
+         * @param  {Number} bl  三角形の左上隅のX座標
+         * @param  {Number} br  三角形の右上隅のX座標
+         * @param  {Number} bh  三角形の高さ
+         */
+        function fillBalloonRoundRect(ctx, x, y, w, h, r, bl, br, bh) {
+            createBalloonRoundRectPath(ctx, x, y, w, h, r, bl, br, bh);
+            ctx.fill();
+        }
+
+        /**
+         * 角が丸い四角形の吹き出し(吹き出しは下側)を描画する
+         * @param  {CanvasRenderingContext2D} ctx コンテキスト
+         * @param  {Number} x   左上隅のX座標
+         * @param  {Number} y   左上隅のY座標
+         * @param  {Number} w   幅
+         * @param  {Number} h   高さ
+         * @param  {Number} r   半径
+         * @param  {Number} bl  三角形の左上隅のX座標
+         * @param  {Number} br  三角形の右上隅のX座標
+         * @param  {Number} bh  三角形の高さ
+         */
+        function strokeBalloonRoundRect(ctx, x, y, w, h, r, bl, br, bh) {
+            createBalloonRoundRectPath(ctx, x, y, w, h, r, bl, br, bh);
+            ctx.stroke();
+        }
+
+
+        function Re_fetch() {
+            // APIからJSONを取得する
+            fetch('./api/v1/list')
+                .then((response) => response.json())
+                .then((stock) => {
+                    // id="todo-container"要素を取得する
+                    //const todoContainer = document.querySelector('#todo-container');
+                    const dowContainer = document.querySelector('#dow-container');
+                    const dowreshioContainer = document.querySelector('#dowreshio-container');
+                    const nkContainer = document.querySelector('#nk-container');
+                    const nkreshioContainer = document.querySelector('#nkreshio-container');
+
+
+                    const div = document.getElementById('target');
+
+                    // コンテナの中身を全部消す
+                    dowContainer.innerHTML = '';
+                    nkContainer.innerHTML = '';
+
+                    //document.write('<img id="carousel__main" src="/img/icon-en-24dp/2x/yen_black_24dp.png">');
+
+                    if (stock[0].Price != stock[0].Reshio) {
+                        dowContainer.innerHTML = stock[0].Price;
+                        dowreshioContainer.innerHTML = stock[0].Reshio + "&nbsp" + stock[0].Percent;
+
+                        stock[0].Polarity == "+" ? change = "red" : change = "green";
+                        document.getElementsByClassName("dow_circle")[0].style.background = change;
+                        document.getElementById("dowreshio-container").style.color = change;
+
+
+                        nkContainer.innerHTML = stock[1].Price;
+                        nkreshioContainer.innerHTML = stock[1].Reshio + "&nbsp" + stock[1].Percent;
+
+                        stock[1].Polarity == "+" ? change = "red" : change = "green";
+                        document.getElementsByClassName("circle")[0].style.background = change;
+                        document.getElementById("nkreshio-container").style.color = change;
+
+
+
+                    }
+
+                    const Name = document.querySelector('#Name');
+                    const ListviewMarket = document.querySelector('#ListviewMarket');
+
+                    const Marketprice = document.querySelector('#Market-price');
+                    const Profit = document.querySelector('#profit');
+                    const Invest = document.querySelector('#invest');
+                    const Benefit = document.querySelector('#benefit');
+                    const Evalu = document.querySelector('#evalu');
+                    const Code = document.querySelector('#code');
+                    const Previous = document.querySelector('#previous');
+
+
+                    var re = stock[2].Price.replace(',', '');//カンマ削除
+                    var con = re * sony[2];//時価X持ち株数
+                    var con1 = con.toLocaleString();//カンマ表記に戻す
+                    Marketprice.innerHTML = con1;//stock[2].Price+"1234";
+                    var inv = sony[1] * sony[2];
+                    Invest.innerHTML = inv.toLocaleString();
+                    Profit.innerHTML = (con - inv).toLocaleString();
+
+                    Benefit.innerHTML = (re - sony[1]).toLocaleString();
+                    Evalu.innerHTML = ((re - sony[1]) * sony[2]).toLocaleString();
+                    Name.innerHTML = stock[2].Name;
+                    ListviewMarket.innerHTML = stock[2].Price;
+                    Code.innerHTML = sony[0];
+                    Previous.innerHTML = stock[2].Reshio;
+                    stock[2].Polarity == "+" ? change = "rgb(255, 0, 0)" : change = "green";
+
+                    //irobako = document.getElementById("previous");
+                    //document.getElementById("previous").style.backgroundColor = change;
+                    document.getElementById("previous").style.backgroundColor = change;
+
+
+                    //}
+                })
+                .catch((error) => {
+                    //alert("エラーが発生しました");
+                    dowContainer.innerHTML = "エラーが発生しました";
+                    console.error(`[FetchAPI] ${error}, ${URL}`);
+                });
+
+
+
+
+        };
+
+
+
+        //await Re_fetch();
+        window.addEventListener('load', async function () {
+            await Re_fetch();
+            // setIntervalの基本
+            // タイマー開始
+            setInterval(Re_fetch, 60000);
+        });
+
+        document.getElementById("dey").innerHTML = showDay();
+        function showDay() {
+            var d = new Date();
+            let year = d.getFullYear();
+            let month = d.getMonth() + 1;
+            let day = d.getDate();
+            let dayofweek = d.getDay();
+            a = year + "/" + month.toString() + "/" + day.toString();
+            return a;
+        };
+
+
+
+
+    </script>
+
+</body>
+
+</html>
