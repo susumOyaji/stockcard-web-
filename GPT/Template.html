@@ -27,12 +27,7 @@
 
 
     <script>
-
-        //const str = '__count__ is the number of occurrences of __count__ in this string.';
-        //const count = (str.match(/__count__/mg) || []).length;
-        //console.log(count); // 2
-       
-        function ItemField1() {
+        function ItemField() {
             var currentNumber = 0;
             var itemTemplate = '<div class="Code-circle"><div class="Code" id="code__count__"></div> </div>'
                 + '<div class="Market"><label id="Name__count__"></label><br>'
@@ -63,12 +58,6 @@
 
 
 
-
-
-                var Id = document.getElementById(newItem.id);
-                console.log(Id);
-
-
                 var Code = document.getElementById("code" + currentNumber);
                 console.log(Code);
                 Code.innerHTML = name;
@@ -77,12 +66,9 @@
                 console.log(Name);
                 Name.innerHTML = name;
 
-
-
                 var Market = document.getElementById("ListviewMarket" + currentNumber);
                 console.log(Market);
                 Market.innerHTML = market;
-
 
                 var Benefits = document.getElementById("benefit" + currentNumber);
                 console.log(Benefits);
@@ -113,8 +99,9 @@
             };
         }
 
-        var myItemField = new ItemField1();
+        var myItemField = new ItemField();
         myItemField.add("6758", "2000", "3000", "4000", "Button1");
+        myItemField.add("Sony111", "1000", "2000", "3000", "Button2");
         myItemField.add("Sony111", "1000", "2000", "3000", "Button2");
         //myItemField.remove();
 

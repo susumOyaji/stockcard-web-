@@ -91,7 +91,8 @@ body {
   /*text-align: left;*/
   /*font-weight: bold;*/
   /*margin: 0 auto;*/
-  margin: 10px;
+  /* [上]、[左右]、[下]の順に余白を指定 */
+  margin: 5px 10px 5px;
   /*box-sizing: border-box;*/
   overflow-y: auto;
   /* 必要なときだけ縦方向のスクロールバーを表示 */
