@@ -19,6 +19,59 @@
 </head>
 
 <body>
+    <div id="stocks_container">
+        <h1>StockCard</h1>
+        <div id="dey"></div>
+    </div>
+
+    <div id="average_container">
+
+        <label class="material-icons">trending_up</label>
+
+        <div class="Price-container">
+
+
+            <label class="dow_circle"></label>
+            <label>Dow Price:$&nbsp;</label>
+            <label id="dow-container"></label>
+            <br>
+            <a><span></span>The day before reshio:$&nbsp;</a>
+            <label id="dowreshio-container"></label>
+
+            <br>
+            <label class="circle"></label>
+            <label>Nikkei Price:￥</label>
+            <label id="nk-container"> </label>
+            <br>
+            <a><span></span>The day before reshio:￥</a>
+            <a id="nkreshio-container"></a>
+
+        </div>
+    </div>
+
+    <div id="market-container">
+        <label class="material-icons">currency_yen</label>
+        <div class="marketPrice-container">
+            <div><b><span id="Market">Market capitalization</span></b></div>
+            <label class="circle"></label>
+            <b>Market price:&nbsp;</b>
+            <label id="Market-price"></label>
+            <br>
+            <label>
+                <span1></span1>Profit(Gains):￥
+            </label>
+            <label id="profit"></label>
+            <label>
+                <span1></span1>Investment:￥
+            </label>
+            <label id="invest"></label>
+        </div>
+
+    </div>
+
+
+
+
     <div id="listview-container"></div>
 
     <p><input type="button" value="項目を追加する" onClick="myItemField.add();" /></p>
