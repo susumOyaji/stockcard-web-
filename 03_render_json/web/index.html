@@ -80,14 +80,67 @@
 
 
     <script>
+        function countItems(data) {
+            let count = 0;
+            data.forEach(item => count++);
+            return count;
+        }
+
+
+
         //②配列リテラルの例
         var sony = ['6758', 1665, 200];
+        /*
+        Future fetch(List < String > items) async {
+            index = 0;
+            acquiredAssetsSum = 0;
+            valuableAssetsSum = 0;
+
+            acquiredAssetsItems = [];
+            valuableAssetsItems = [];
+            code = [];
+            presentvalue = [];
+            changePriceValue = [];
+            changePriceRate = [];
+            benefits = [];
+            signalstate = [];
+            percentcheng = [];
+
+            //List<String> responce = items; //"998407.O,0,0\n^DJI,0,0\n";
+
+            for (String item in items) {
+                final response = await http
+                    .get(Uri.parse('https://finance.yahoo.co.jp/quote/$item')); //^DJI
+            final String json = response.body;
+        */
+
+
+
+
+        async function fetchUrls(items) {
+            try {
+                for (const item of items) {
+                    const url = `https://finance.yahoo.co.jp/quote/${item}`; //sony...
+                    const response = await fetch(url);
+                    const data = await response.json();
+                    // 取得したデータを処理するコードをここに書く
+
+
+                    
+                }
+            } catch (error) {
+                // エラーが発生した場合の処理をここに書く
+            }
+        }
+
+
 
         function Re_fetch() {
             // APIからJSONを取得する
             fetch('./api/v1/list')
                 .then((response) => response.json())
                 .then((stock) => {
+                    count = stock.length;
                     // id="todo-container"要素を取得する
                     //const todoContainer = document.querySelector('#todo-container');
                     const dowContainer = document.querySelector('#dow-container');
@@ -99,7 +152,7 @@
                     const div = document.getElementById('target');
 
                     // コンテナの中身を全部消す
-                    dowContainer.innerHTML = '';
+                    dowContainer.innerHTML = '';//`Number of items: ${count}`;
                     nkContainer.innerHTML = '';
 
                     //document.write('<img id="carousel__main" src="/img/icon-en-24dp/2x/yen_black_24dp.png">');
@@ -124,7 +177,11 @@
 
                     }
 
-                    const Name = document.querySelector('#Name');
+
+
+
+
+                    const Name = document.querySelector('#Name1');
                     const ListviewMarket = document.querySelector('#ListviewMarket');
 
                     const Marketprice = document.querySelector('#Market-price');
@@ -167,7 +224,7 @@
 
         };
 
-        
+
         //await Re_fetch();
         window.addEventListener('load', async function () {
             await Re_fetch();
@@ -220,14 +277,19 @@
                 document.getElementById("listview-container").appendChild(newItem);
 
 
-
+                ///////var sony = ['6758', 1665, 200];
                 var Code = document.getElementById("code" + currentNumber);
                 console.log(Code);
                 Code.innerHTML = name;
 
-                var Name = document.getElementById("Name" + currentNumber);
+
+                const Name = document.querySelector("Name" + currentNumber);
+
+
+                Name = document.getElementById("Name" + currentNumber);
                 console.log(Name);
-                Name.innerHTML = name;
+                Name.innerHTML = stock[currentNumber].Name;
+                //Name.innerHTML = name;
 
                 var Market = document.getElementById("ListviewMarket" + currentNumber);
                 console.log(Market);

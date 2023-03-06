@@ -21,7 +21,7 @@ arr = [];
 const app = express();
 
 // webフォルダの中身を公開する
-app.use(express.static('./03_render_json/web'));
+app.use(express.static('./03_render_json/web/'));
 
 
 const {
@@ -46,6 +46,14 @@ var options_sony = {
     json: true
 }
 
+function options_any(code) {
+
+    return options_any={
+    url: `https://finance.yahoo.co.jp/quote/${code}.T`,
+    method: 'GET',
+    json: true
+    }
+}
 
 
 
@@ -69,9 +77,9 @@ app.get('/api/v1/list', (req, res) => {
         var span = dom.window.document.getElementsByTagName('span');
 
         
-        price = span[19].textContent;
+        price = span[18].textContent;
         reshio = span[23].textContent;
-        percent = span[29].textContent;
+        percent = span[28].textContent;
         polarity = percent;//sapn[29].textContent;
         polarity=polarity.substr( 0,1);
 
@@ -89,8 +97,8 @@ app.get('/api/v1/list', (req, res) => {
             console.log(i);
             console.log(span[i].textContent);
             
-        }
-        */
+        }*/
+        
     });
 
 
@@ -106,8 +114,8 @@ app.get('/api/v1/list', (req, res) => {
 
 
         price = foo01[0].textContent;
-        reshio = span[31].textContent + foo01[1].textContent;
-        percent = span[30].textContent;
+        reshio = span[30].textContent + foo01[1].textContent;
+        percent = span[29].textContent;
         polarity = percent;
         polarity = polarity.substr( 0,1);//span[31].textContent;
 
@@ -127,11 +135,48 @@ app.get('/api/v1/list', (req, res) => {
           
        }
        */
-
+    
 
     });
 
     request(options_sony, (error, response, body) => {
+        if (error) {
+            console.error(error)
+        }
+
+        const dom = new JSDOM(body);
+        var foo01 = dom.window.document.getElementsByClassName('_3rXWJKZF');
+        var span = dom.window.document.getElementsByTagName('span');
+        var h1 = dom.window.document.getElementsByTagName('h1');
+
+        Name= h1[1].textContent;
+        price = foo01[0].textContent;
+        reshio = foo01[1].textContent;// + foo01[1].textContent;
+        percent = foo01[2].textContent;
+        polarity = percent;//span[35].textContent;
+        polarity=polarity.substr( 0,1);
+
+        SONY = { Name: Name, Price: price, Reshio: reshio, Percent: percent, Polarity: polarity };
+
+        //console.log(stockdatas);
+
+        arr[2] = ['SONY', price, reshio, percent];
+        //console.log(arr[1][0]);
+
+
+        /*
+       for (var i = 0; i <= 50; i++) {
+           console.log(i);
+           console.log(span[i].textContent);
+          
+       }
+       */
+
+
+    });
+
+
+    request(options_any(code), (error, response, body) => {
         if (error) {
             console.error(error)
         }
