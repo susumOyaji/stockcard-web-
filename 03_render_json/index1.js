@@ -176,42 +176,7 @@ app.get('/api/v1/list', (req, res) => {
     });
 
 
-    request(options_any(code), (error, response, body) => {
-        if (error) {
-            console.error(error)
-        }
-
-        const dom = new JSDOM(body);
-        var foo01 = dom.window.document.getElementsByClassName('_3rXWJKZF');
-        var span = dom.window.document.getElementsByTagName('span');
-        var h1 = dom.window.document.getElementsByTagName('h1');
-
-        Name= h1[1].textContent;
-        price = foo01[0].textContent;
-        reshio = foo01[1].textContent;// + foo01[1].textContent;
-        percent = foo01[2].textContent;
-        polarity = percent;//span[35].textContent;
-        polarity=polarity.substr( 0,1);
-
-        SONY = { Name: Name, Price: price, Reshio: reshio, Percent: percent, Polarity: polarity };
-
-        //console.log(stockdatas);
-
-        arr[2] = ['SONY', price, reshio, percent];
-        //console.log(arr[1][0]);
-
-
-        /*
-       for (var i = 0; i <= 50; i++) {
-           console.log(i);
-           console.log(span[i].textContent);
-          
-       }
-       */
-
-
-    });
-
+   
 
 
    

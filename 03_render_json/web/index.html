@@ -126,7 +126,7 @@
                     // 取得したデータを処理するコードをここに書く
 
 
-                    
+
                 }
             } catch (error) {
                 // エラーが発生した場合の処理をここに書く
@@ -284,12 +284,10 @@
 
 
                 const Name = document.querySelector("Name" + currentNumber);
-
-
-                Name = document.getElementById("Name" + currentNumber);
+                //Name = document.getElementById("Name" + currentNumber);
                 console.log(Name);
-                Name.innerHTML = stock[currentNumber].Name;
-                //Name.innerHTML = name;
+                //Name.innerHTML = stock[currentNumber].Name;
+                Name.innerHTML = name;
 
                 var Market = document.getElementById("ListviewMarket" + currentNumber);
                 console.log(Market);
