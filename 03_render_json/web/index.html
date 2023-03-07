@@ -89,7 +89,11 @@
 
 
         //②配列リテラルの例
-        var sony = ['6758', 1665, 200];
+        var items = ['6758', 1665, 200];
+        var sony = [
+            ['6758', 1665, 200],
+            ['6976', 300, 1801]
+        ];
         /*
         Future fetch(List < String > items) async {
             index = 0;
@@ -116,28 +120,21 @@
 
 
 
-
-        async function fetchUrls(items) {
-            try {
-                for (const item of items) {
-                    const url = `https://finance.yahoo.co.jp/quote/${item}`; //sony...
-                    const response = await fetch(url);
-                    const data = await response.json();
-                    // 取得したデータを処理するコードをここに書く
-
-
-
-                }
-            } catch (error) {
-                // エラーが発生した場合の処理をここに書く
-            }
-        }
-
-
-
         function Re_fetch() {
+
+            //const data = [1, 2, 3];
+            const queryString = `data=${encodeURIComponent(JSON.stringify(sony))}`;
+
+            //fetch(`/api/v1/list?${queryString}`)
+            //    .then(response => response.json())
+            //    .then(data => console.log(data))
+            //    .catch(error => console.error(error));
+
+
+
+
             // APIからJSONを取得する
-            fetch('./api/v1/list')
+            fetch(`/api/v1/list?${queryString}`)
                 .then((response) => response.json())
                 .then((stock) => {
                     count = stock.length;
@@ -228,6 +225,7 @@
         //await Re_fetch();
         window.addEventListener('load', async function () {
             await Re_fetch();
+
             // setIntervalの基本
             // タイマー開始
             setInterval(Re_fetch, 60000);
@@ -283,8 +281,8 @@
                 Code.innerHTML = name;
 
 
-                const Name = document.querySelector("Name" + currentNumber);
-                //Name = document.getElementById("Name" + currentNumber);
+                //const Name = document.querySelector("Name" + currentNumber);
+                const Name = document.getElementById("Name" + currentNumber);
                 console.log(Name);
                 //Name.innerHTML = stock[currentNumber].Name;
                 Name.innerHTML = name;
@@ -325,7 +323,7 @@
 
 
 
-
+        //fetchUrls(items[0]);
         var myItemField = new ItemField();
         myItemField.add("6758", "2000", "3000", "4000", "Button1");
         myItemField.add("Sony111", "1000", "2000", "3000", "Button2");
