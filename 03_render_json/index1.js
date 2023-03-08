@@ -5,9 +5,12 @@ const request = require('request');
 
 
 var stockdata = {};
+var code;
+var company;
 var price;
 var reshio;
 var percent;
+var polarity;
 
 //let stdData = {};
 var DJI = {};//JSON形式の配列
@@ -16,6 +19,8 @@ var SONY = {};
 
 var stockdatas = {};
 arr = [];
+var resArray = [];//new Array();
+
 
 // expressアプリを生成する
 const app = express();
@@ -64,7 +69,8 @@ var options_sony = {
 app.get('/api/v1/list', (req, res) => {
     const data = JSON.parse(req.query.data);
 
-
+    // 配列をクリアする
+    resArray = [];
 
     /*
     data.forEach((code, index) => {
@@ -102,7 +108,7 @@ app.get('/api/v1/list', (req, res) => {
 
         DJI = { Name: '^DJI', Price: price, Reshio: reshio, Percent: percent, Polarity: polarity };
         // console.log(stockdatas);
-
+        resArray.push({ Code: '^DJI', Name: '^DJI', Price: price, Reshio: reshio, Percent: percent, Polarity: polarity });
 
 
         arr[0] = ['^DJI', price, reshio, percent];
@@ -147,7 +153,7 @@ app.get('/api/v1/list', (req, res) => {
 
 
         NIKEI = { Name: 'NIKEI', Price: price, Reshio: reshio, Percent: percent, Polarity: polarity };
-
+        resArray.push({ Code: '998407.O', Name: 'NIKEI', Price: price, Reshio: reshio, Percent: percent, Polarity: polarity });
         //console.log(stockdatas);
 
         arr[1] = ['NIKEI', price, reshio, percent];
@@ -158,89 +164,104 @@ app.get('/api/v1/list', (req, res) => {
        for (var i = 0; i <= 50; i++) {
            console.log(i);
            console.log(span[i].textContent);
-          
+           //console.log(p[i].textContent);
        }
        */
 
 
     });
-
-
-    request(options_sony, (error, response, body) => {
-        if (error) {
-            console.error(error)
-        }
-
-        const dom = new JSDOM(body);
-        var foo01 = dom.window.document.getElementsByClassName('_3rXWJKZF');
-        var span = dom.window.document.getElementsByTagName('span');
-        var h1 = dom.window.document.getElementsByTagName('h1');
-
-        Name = h1[1].textContent;
-        price = foo01[0].textContent;
-        reshio = foo01[1].textContent;// + foo01[1].textContent;
-        percent = foo01[2].textContent;
-        polarity = percent;//span[35].textContent;
-        polarity = polarity.substr(0, 1);
-
-        SONY = { Name: Name, Price: price, Reshio: reshio, Percent: percent, Polarity: polarity };
-
-        //console.log(stockdatas);
-
-        arr[2] = ['SONY', price, reshio, percent];
-        //console.log(arr[1][0]);
-
-
-        /*
-       for (var i = 0; i <= 50; i++) {
-           console.log(i);
-           console.log(span[i].textContent);
-          
-       }
-       */
-
-
-    });
-
 
 
 
     for (let i = 0; i < data.length; i += 1) {
         const element = data[i][0];
         var url = `https://finance.yahoo.co.jp/quote/${element}.T`;
-        request.get(url, (error, response, body) => {
+        request(url, (error, response, body) => {
             if (error) {
-                console.error(`Error fetching ${url}: ${error}`);
-                return;
+                console.error(error)
             }
-            console.log(`Response from ${url}: ${body}`);
+
             const dom = new JSDOM(body);
             var foo01 = dom.window.document.getElementsByClassName('_3rXWJKZF');
             var span = dom.window.document.getElementsByTagName('span');
             var h1 = dom.window.document.getElementsByTagName('h1');
+
             Name = h1[1].textContent;
             price = foo01[0].textContent;
             reshio = foo01[1].textContent;// + foo01[1].textContent;
             percent = foo01[2].textContent;
             polarity = percent;//span[35].textContent;
-            polarity = polarity.substr(0, 1)
+            polarity = polarity.substr(0, 1);
+
+            SONY = { Name: Name, Price: price, Reshio: reshio, Percent: percent, Polarity: polarity };
+            resArray.push({ Code:element,Name: Name, Price: price, Reshio: reshio, Percent: percent, Polarity: polarity });
+            //console.log(stockdatas);
+
+            arr[2] = ['SONY', price, reshio, percent];
+            //console.log(arr[1][0]);
+
+
+            /*
+           for (var i = 0; i <= 50; i++) {
+               console.log(i);
+               console.log(span[i].textContent);
+              
+           }
+           */
+
+
         });
-
-
-        // 処理内容
     }
 
+    /*
+    const data1 = [];
+    //for (let i = 0; i < data.length; i += 1) {
+        const element = data[1][0];
+        var url = `https://finance.yahoo.co.jp/quote/${element}.T`;
+        request(url, (error, response, body) => {
+            if (error) {
+                console.error(`Error fetching ${url}: ${error}`);
+                return;
+            }
+            //console.log(`Response from ${url}: ${body}`);
+            const dom = new JSDOM(body);
+            var foo02 = dom.window.document.getElementsByClassName('_3rXWJKZF');
+            var span = dom.window.document.getElementsByTagName('span');
+            
+            var h1 = dom.window.document.getElementsByTagName('h1');
+            company = h1[1].textContent;
+            price = foo02[0].textContent;
+            reshio = foo02[1].textContent;// + foo01[1].textContent;
+            percent = foo02[2].textContent;
+            polarity = percent;//span[35].textContent;
+            polarity = polarity.substr(0, 1)
+            
+            //console.log(stockdatas);
+        });
+        resArray.push({ Code: element, Name: company, Price: price, Reshio: reshio, Percent: percent, Polarity: polarity });
+            
+        //data1.push({ Code: element });
+
+        // 処理内容
+    //}
+        */
 
 
 
     stockdatas = [DJI, NIKEI, SONY];
 
     //console.log(stockdatas);
-    console.log(stockdatas[0]);
-    console.log(stockdatas[1]);
-    console.log(stockdatas[2]);
+    //console.log(stockdatas[0]);
+    //console.log(stockdatas[1]);
+    //console.log(stockdatas[2]);
+
+
+
+    // JSON.stringifyを使用して、JSON配列を表示する
+    console.log(JSON.stringify(resArray, null, 2));
+    console.log(resArray);
     // JSONを送信する
-    //res.json(todoList);
+    //res.json(resArray);
     res.json(stockdatas);
 });
 
