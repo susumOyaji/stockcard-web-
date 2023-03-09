@@ -7,6 +7,7 @@ const request = require('request');
 var stockdata = {};
 var code;
 var company;
+var Name;
 var price;
 var reshio;
 var percent;
@@ -20,7 +21,7 @@ var SONY = {};
 var stockdatas = {};
 arr = [];
 var resArray = [];//new Array();
-
+var users = [];
 
 // expressアプリを生成する
 const app = express();
@@ -122,14 +123,8 @@ app.get('/api/v1/list', (req, res) => {
             
         }*/
 
-        /*
-        const data = [
-            {id: 1, name: 'item1'},
-            {id: 2, name: 'item2'},
-            {id: 3, name: 'item3'}
-          ];
-          res.json(data);
-          */
+        
+        
 
     });
 
@@ -176,6 +171,7 @@ app.get('/api/v1/list', (req, res) => {
     for (let i = 0; i < data.length; i += 1) {
         const element = data[i][0];
         var url = `https://finance.yahoo.co.jp/quote/${element}.T`;
+        console.log(url);
         request(url, (error, response, body) => {
             if (error) {
                 console.error(error)
@@ -183,7 +179,7 @@ app.get('/api/v1/list', (req, res) => {
 
             const dom = new JSDOM(body);
             var foo01 = dom.window.document.getElementsByClassName('_3rXWJKZF');
-            var span = dom.window.document.getElementsByTagName('span');
+            //var span = dom.window.document.getElementsByTagName('span');
             var h1 = dom.window.document.getElementsByTagName('h1');
 
             Name = h1[1].textContent;
@@ -194,8 +190,8 @@ app.get('/api/v1/list', (req, res) => {
             polarity = polarity.substr(0, 1);
 
             SONY = { Name: Name, Price: price, Reshio: reshio, Percent: percent, Polarity: polarity };
-            resArray.push({ Code:element,Name: Name, Price: price, Reshio: reshio, Percent: percent, Polarity: polarity });
-            //console.log(stockdatas);
+
+
 
             arr[2] = ['SONY', price, reshio, percent];
             //console.log(arr[1][0]);
@@ -208,10 +204,43 @@ app.get('/api/v1/list', (req, res) => {
               
            }
            */
-
-
+            // 新しい要素を定義
+            var newElement = { Code: element, Name: Name, Price: price, Reshio: reshio, Percent: percent, Polarity: polarity };
+            resArray.push(newElement);
+            // console.log(Name);
+            // console.log(price);
+            // console.log(reshio);
         });
+
+
+
+
+
+        // JSON配列の定義
+        var myArray = [
+            { "name": "John", "age": 30 },
+            { "name": "Mary", "age": 25 }
+        ];
+
+        // 新しい要素を定義
+        var newElement = { "name": "Bob", "age": 40 };
+
+        // JSON配列に新しい要素を追加
+        myArray.push(newElement);
+
+        // JSON配列をJSON文字列に変換
+        var jsonString = JSON.stringify(myArray);
+
+        console.log(jsonString); // 出力結果: [{"name":"John","age":30},{"name":"Mary","age":25},{"name":"Bob","age":40}]
+
+
+
+
+
     }
+
+
+
 
     /*
     const data1 = [];
@@ -248,6 +277,10 @@ app.get('/api/v1/list', (req, res) => {
 
 
 
+
+
+
+
     stockdatas = [DJI, NIKEI, SONY];
 
     //console.log(stockdatas);
@@ -256,9 +289,10 @@ app.get('/api/v1/list', (req, res) => {
     //console.log(stockdatas[2]);
 
 
-
+    // オブジェクトデータをJSON化
+    var json = JSON.stringify(resArray);
     // JSON.stringifyを使用して、JSON配列を表示する
-    console.log(JSON.stringify(resArray, null, 2));
+    console.log(JSON.stringify(resArray));
     console.log(resArray);
     // JSONを送信する
     //res.json(resArray);
