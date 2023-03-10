@@ -190,7 +190,7 @@ app.get('/api/v1/list', (req, res) => {
             }
 
         });
-        stock.push({ Name: name[i], Price: price[i], Reshio: reshio[i], Percent: percent[i], Polarity: '+' });
+        resArray.push({ Name: name[i], Price: price[i], Reshio: reshio[i], Percent: percent[i], Polarity: '+' });
     }
 
 
@@ -209,13 +209,13 @@ app.get('/api/v1/list', (req, res) => {
 
 
     // オブジェクトデータをJSON化
-    var json = JSON.stringify(resArray);
+    //var json = JSON.stringify(resArray);
     // JSON.stringifyを使用して、JSON配列を表示する
-    console.log(JSON.stringify(resArray));
+    //console.log(JSON.stringify(resArray));
     console.log(resArray);
     // JSONを送信する
-    //res.json(resArray);
-    res.json(stockdatas);
+    res.json(resArray);
+    //res.json(stockdatas);
 });
 
 
