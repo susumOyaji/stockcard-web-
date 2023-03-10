@@ -7,7 +7,7 @@ const request = require('request');
 var stockdata = {};
 var code;
 var company;
-var Name;
+var name;
 var price;
 var reshio;
 var percent;
@@ -123,8 +123,8 @@ app.get('/api/v1/list', (req, res) => {
             
         }*/
 
-        
-        
+
+
 
     });
 
@@ -169,111 +169,30 @@ app.get('/api/v1/list', (req, res) => {
 
 
     for (let i = 0; i < data.length; i += 1) {
-        const element = data[i][0];
-        var url = `https://finance.yahoo.co.jp/quote/${element}.T`;
-        console.log(url);
-        request(url, (error, response, body) => {
-            if (error) {
-                console.error(error)
+        element = data[i][0];
+        url = `https://finance.yahoo.co.jp/quote/${element}.T`;
+        request(url, function (error, response, body) {
+            if (!error && response.statusCode == 200) {
+                //console.log(body);
+                // データを処理するコードをここに記述
+                const dom = new JSDOM(body);
+                var foo01 = dom.window.document.getElementsByClassName('_3rXWJKZF');
+
+                //var span = dom.window.document.getElementsByTagName('span');
+                var h1 = dom.window.document.getElementsByTagName('h1');
+
+                name[i] = h1[1].textContent;
+                price[i] = foo01[0].textContent;
+                reshio[i] = foo01[1].textContent;// + foo01[1].textContent;
+                percent[i] = foo01[2].textContent
+                polarity[i] = percent[i];//span[35].textContent;
+                polarity[i] = polarity[i].substr(0, 1);
             }
 
-            const dom = new JSDOM(body);
-            var foo01 = dom.window.document.getElementsByClassName('_3rXWJKZF');
-            //var span = dom.window.document.getElementsByTagName('span');
-            var h1 = dom.window.document.getElementsByTagName('h1');
-
-            Name = h1[1].textContent;
-            price = foo01[0].textContent;
-            reshio = foo01[1].textContent;// + foo01[1].textContent;
-            percent = foo01[2].textContent;
-            polarity = percent;//span[35].textContent;
-            polarity = polarity.substr(0, 1);
-
-            SONY = { Name: Name, Price: price, Reshio: reshio, Percent: percent, Polarity: polarity };
-
-
-
-            arr[2] = ['SONY', price, reshio, percent];
-            //console.log(arr[1][0]);
-
-
-            /*
-           for (var i = 0; i <= 50; i++) {
-               console.log(i);
-               console.log(span[i].textContent);
-              
-           }
-           */
-            // 新しい要素を定義
-            var newElement = { Code: element, Name: Name, Price: price, Reshio: reshio, Percent: percent, Polarity: polarity };
-            resArray.push(newElement);
-            // console.log(Name);
-            // console.log(price);
-            // console.log(reshio);
         });
-
-
-
-
-
-        // JSON配列の定義
-        var myArray = [
-            { "name": "John", "age": 30 },
-            { "name": "Mary", "age": 25 }
-        ];
-
-        // 新しい要素を定義
-        var newElement = { "name": "Bob", "age": 40 };
-
-        // JSON配列に新しい要素を追加
-        myArray.push(newElement);
-
-        // JSON配列をJSON文字列に変換
-        var jsonString = JSON.stringify(myArray);
-
-        console.log(jsonString); // 出力結果: [{"name":"John","age":30},{"name":"Mary","age":25},{"name":"Bob","age":40}]
-
-
-
-
-
+        stock.push({ Name: name[i], Price: price[i], Reshio: reshio[i], Percent: percent[i], Polarity: '+' });
     }
 
-
-
-
-    /*
-    const data1 = [];
-    //for (let i = 0; i < data.length; i += 1) {
-        const element = data[1][0];
-        var url = `https://finance.yahoo.co.jp/quote/${element}.T`;
-        request(url, (error, response, body) => {
-            if (error) {
-                console.error(`Error fetching ${url}: ${error}`);
-                return;
-            }
-            //console.log(`Response from ${url}: ${body}`);
-            const dom = new JSDOM(body);
-            var foo02 = dom.window.document.getElementsByClassName('_3rXWJKZF');
-            var span = dom.window.document.getElementsByTagName('span');
-            
-            var h1 = dom.window.document.getElementsByTagName('h1');
-            company = h1[1].textContent;
-            price = foo02[0].textContent;
-            reshio = foo02[1].textContent;// + foo01[1].textContent;
-            percent = foo02[2].textContent;
-            polarity = percent;//span[35].textContent;
-            polarity = polarity.substr(0, 1)
-            
-            //console.log(stockdatas);
-        });
-        resArray.push({ Code: element, Name: company, Price: price, Reshio: reshio, Percent: percent, Polarity: polarity });
-            
-        //data1.push({ Code: element });
-
-        // 処理内容
-    //}
-        */
 
 
 
