@@ -69,7 +69,6 @@ var options_sony = {
 // TODOリストを返す
 app.get('/api/v1/list', (req, res) => {
     const data = JSON.parse(req.query.data);
-
     // 配列をクリアする
     resArray = [];
 
