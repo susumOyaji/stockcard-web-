@@ -1,17 +1,18 @@
 // expressモジュールを読み込む
 const express = require('express');
 const request = require('request');
+const requestpromise = require('request-promise');
 
 
 
 var stockdata = {};
 var code;
 var company;
-var name;
-var price;
-var reshio;
-var percent;
-var polarity;
+var name = [];
+var price = [];
+var reshio = [];
+var percent = [];
+var polarity=[];
 
 //let stdData = {};
 var DJI = {};//JSON形式の配列
@@ -100,15 +101,15 @@ app.get('/api/v1/list', (req, res) => {
         var span = dom.window.document.getElementsByTagName('span');
 
 
-        price = span[18].textContent;
-        reshio = span[23].textContent;
-        percent = span[28].textContent;
-        polarity = percent;//sapn[29].textContent;
-        polarity = polarity.substr(0, 1);
+        price[0] = span[18].textContent;
+        reshio[0] = span[23].textContent;
+        percent[0] = span[28].textContent;
+        polarity[0] = percent;//sapn[29].textContent;
+        //polarity[0] = polarity.substr(0, 1);
 
-        DJI = { Name: '^DJI', Price: price, Reshio: reshio, Percent: percent, Polarity: polarity };
+        DJI = { Name: '^DJI', Price: price[0], Reshio: reshio[0], Percent: percent[0], Polarity: polarity[0] };
         // console.log(stockdatas);
-        resArray.push({ Code: '^DJI', Name: '^DJI', Price: price, Reshio: reshio, Percent: percent, Polarity: polarity });
+        //resArray.push({ Code: '^DJI', Name: '^DJI', Price: price[0], Reshio: reshio[0], Percent: percent[0], Polarity: polarity[0] });
 
 
         arr[0] = ['^DJI', price, reshio, percent];
@@ -126,6 +127,7 @@ app.get('/api/v1/list', (req, res) => {
 
 
     });
+    resArray.push({ Code: '^DJI', Name: '^DJI', Price: price[0], Reshio: reshio[0], Percent: percent[0], Polarity: polarity[0] });
 
 
 
@@ -147,7 +149,7 @@ app.get('/api/v1/list', (req, res) => {
 
 
         NIKEI = { Name: 'NIKEI', Price: price, Reshio: reshio, Percent: percent, Polarity: polarity };
-        resArray.push({ Code: '998407.O', Name: 'NIKEI', Price: price, Reshio: reshio, Percent: percent, Polarity: polarity });
+        //resArray.push({ Code: '998407.O', Name: 'NIKEI', Price: price, Reshio: reshio, Percent: percent, Polarity: polarity });
         //console.log(stockdatas);
 
         arr[1] = ['NIKEI', price, reshio, percent];
@@ -167,7 +169,7 @@ app.get('/api/v1/list', (req, res) => {
 
 
 
-    for (let i = 0; i < data.length; i += 1) {
+    for (let i = 0; i < data.length; i++) {
         element = data[i][0];
         url = `https://finance.yahoo.co.jp/quote/${element}.T`;
         request(url, function (error, response, body) {
@@ -185,7 +187,7 @@ app.get('/api/v1/list', (req, res) => {
                 reshio[i] = foo01[1].textContent;// + foo01[1].textContent;
                 percent[i] = foo01[2].textContent
                 polarity[i] = percent[i];//span[35].textContent;
-                polarity[i] = polarity[i].substr(0, 1);
+                //polarity[i] = polarity[i].substr(0, 1);
             }
 
         });

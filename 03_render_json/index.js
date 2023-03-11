@@ -11,11 +11,11 @@ var stock = [];
 var newElement;
 var code;
 var company;
-var name = [];
-var price = [];
-var reshio = [];
-var percent = [];
-var polarity=[];
+var name;
+var price;
+var reshio;
+var percent;
+var polarity;
 var element;
 var url;
 
@@ -29,13 +29,23 @@ const {
     JSDOM
 } = require('jsdom')
 
+var options_dji = {
+    url: 'https://finance.yahoo.co.jp/quote/%5EDJI',
+    method: 'GET',
+    json: true
+}
 
+var options_nk = {
+    url: 'https://finance.yahoo.co.jp/quote/998407.O',
+    method: 'GET',
+    json: true
+}
 
 // http://localhost:3000/api/v1/list にアクセスしてきたときに
 // TODOリストを返す
 app.get('/api/v1/list', (req, res) => {
     const data = JSON.parse(req.query.data);
-    resArray = [];
+    stock = [];
 
 
     // クライアントに送るJSONデータ
@@ -53,39 +63,102 @@ app.get('/api/v1/list', (req, res) => {
 
 
 
+    request(options_nk, (error, response, body) => {
+        if (error) {
+            console.error(error)
+        }
+
+        const dom = new JSDOM(body);
+        var foo01 = dom.window.document.getElementsByClassName('_3wVTceYe');
+        var span = dom.window.document.getElementsByTagName('span');
 
 
-    for (let i = 0; i < data.length; i += 1) {
-        element = data[i][0];
-        url = `https://finance.yahoo.co.jp/quote/${element}.T`;
-        request(url, function (error, response, body) {
-            if (!error && response.statusCode == 200) {
-                //console.log(body);
-                // データを処理するコードをここに記述
-                const dom = new JSDOM(body);
-                var foo01 = dom.window.document.getElementsByClassName('_3rXWJKZF');
+        price = foo01[0].textContent;
+        reshio = span[30].textContent + foo01[1].textContent;
+        percent = span[29].textContent;
+        polarity = percent;
+        //polarity = polarity.substr(0, 1);//span[31].textContent;
+        /*
+       for (var i = 0; i <= 50; i++) {
+           console.log(i);
+           console.log(span[i].textContent);
+           //console.log(p[i].textContent);
+       }
+       */
+    });
+    stock.push({ Code: '998407.O', Name: 'NIKEI', Price: price, Reshio: reshio, Percent: percent, Polarity: polarity });
 
-                //var span = dom.window.document.getElementsByTagName('span');
-                var h1 = dom.window.document.getElementsByTagName('h1');
 
-                name[i] = h1[1].textContent;
-                price[i] = foo01[0].textContent;
-                reshio[i] = foo01[1].textContent;// + foo01[1].textContent;
-                percent[i] = foo01[2].textContent
-                polarity[i] = percent[i];//span[35].textContent;
-                polarity[i] = polarity[i].substr(0, 1);
-            }
 
-        });
-        stock.push({ Name: name[i], Price: price[i], Reshio: reshio[i], Percent: percent[i], Polarity: '+' });
-    }
 
-   
+
+    //for (let i = 0; i < data.length; i++) {
+    i = 0;
+    element = data[i][0];
+    url = `https://finance.yahoo.co.jp/quote/${element}.T`;
+    request(url, (error, response, body) => {
+        if (error) {
+            console.error(error)
+        }
+
+
+       // if (!error && response.statusCode == 200) {
+            //console.log(body);
+            // データを処理するコードをここに記述
+            const dom = new JSDOM(body);
+            var foo01 = dom.window.document.getElementsByClassName('_3rXWJKZF');
+
+            //var span = dom.window.document.getElementsByTagName('span');
+            var h1 = dom.window.document.getElementsByTagName('h1');
+
+            name = h1[1].textContent;
+            price = foo01[0].textContent;
+            reshio = foo01[1].textContent;// + foo01[1].textContent;
+            percent = foo01[2].textContent
+            polarity = percent[i];//span[35].textContent;
+            //polarity[i] = polarity[i].substr(0, 1);
+        //}
+
+    });
+    stock.push({ Name: name, Price: price, Reshio: reshio, Percent: percent, Polarity: '+' });
+    console.log(stock);
+    //}
+
+    i = 1;
+    element = data[i][0];
+    url = `https://finance.yahoo.co.jp/quote/${element}.T`;
+    request(url, (error, response, body) => {
+        if (error) {
+            console.error(error)
+        }
+        //if (!error && response.statusCode == 200) {
+            //console.log(body);
+            // データを処理するコードをここに記述
+            const dom1 = new JSDOM(body);
+            var foo02 = dom1.window.document.getElementsByClassName('_3rXWJKZF');
+
+            //var span = dom.window.document.getElementsByTagName('span');
+            var h2 = dom1.window.document.getElementsByTagName('h1');
+
+            name = h2[1].textContent;
+            price = foo02[0].textContent;
+            reshio = foo02[1].textContent;// + foo01[1].textContent;
+            percent = foo02[2].textContent
+            polarity = percent[i];//span[35].textContent;
+            //polarity[i] = polarity[i].substr(0, 1);
+        //}
+
+    });
+    //stock.push({ Name: name, Price: price, Reshio: reshio, Percent: percent, Polarity: '+' });
+    //console.log(stock);
+    //}
+
+
 
 
 
     //console.log(stock.length);
-    console.log(stock);
+    //console.log(stock);
     // JSONを送信する
     //res.json(todoList);
     res.json(stock);
