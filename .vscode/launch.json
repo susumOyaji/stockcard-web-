@@ -21,11 +21,11 @@
         {
             "type": "node",
             "request": "launch",
-            "name": "fatchプログラムの起動",
+            "name": "Syncプログラムの起動",
             "skipFiles": [
                 "<node_internals>/**"
             ],
-            "program": "${workspaceFolder}/fatch/index.js"
+            "program": "${workspaceFolder}/03_render_json/returnReqSync.js"
         },
         {
             "type": "msedge",

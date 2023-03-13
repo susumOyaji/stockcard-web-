@@ -17,6 +17,7 @@
     "request": "^2.88.2",
     "request-promise": "^4.2.6",
     "require": "^2.4.20",
+    "sync-request": "^6.1.0",
     "uuid": "^9.0.0"
   },
   "repository": {

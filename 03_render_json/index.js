@@ -1,7 +1,7 @@
 // expressモジュールを読み込む
 const express = require('express');
 const request = require('request');
-const requestpromise = require('request-promise');
+//const requestpromise = require('request-promise');
 
 
 
@@ -56,12 +56,48 @@ app.get('/api/v1/list', (req, res) => {
     ];
 
 
-    stock = [{ Name: '^DJI', Price: '10', Reshio: '20', Percent: '30', Polarity: '+' },];
+    stock = [{ Code:'^DJI',Name: '^DJI', Price: '10', Reshio: '20', Percent: '30', Polarity: '+' },];
 
-    stock.push({ Name: 'NIKEI', Price: '100', Reshio: '200', Percent: '300', Polarity: '+' });
+    stock.push({ Code:'NIKKEI',Name: 'NIKEI', Price: '100', Reshio: '200', Percent: '300', Polarity: '+' });
 
 
 
+    request(options_dji, (error, response, body) => {
+        if (error) {
+            console.error(error)
+        }
+
+        const dom = new JSDOM(body)
+        var span = dom.window.document.getElementsByTagName('span');
+
+
+        price = "d1";//span[18].textContent;
+        reshio = span[23].textContent;
+        percent = span[28].textContent;
+        polarity = percent;//sapn[29].textContent;
+        //polarity[0] = polarity.substr(0, 1);
+
+        DJI = { Name: '^DJI', Price: price[0], Reshio: reshio[0], Percent: percent[0], Polarity: polarity[0] };
+        // console.log(stockdatas);
+        //resArray.push({ Code: '^DJI', Name: '^DJI', Price: price[0], Reshio: reshio[0], Percent: percent[0], Polarity: polarity[0] });
+
+
+        //arr[0] = ['^DJI', price, reshio, percent];
+        //console.log(arr[0][0])
+
+
+        /*
+        for (var i = 18; i <= 50; i++) {
+            console.log(i);
+            console.log(span[i].textContent);
+            
+        }*/
+
+
+
+
+    });
+    stock.push({ Code: '^DJI', Name: '^DJI', Price: price, Reshio: reshio, Percent: percent, Polarity: polarity });
 
     request(options_nk, (error, response, body) => {
         if (error) {
@@ -73,7 +109,7 @@ app.get('/api/v1/list', (req, res) => {
         var span = dom.window.document.getElementsByTagName('span');
 
 
-        price = foo01[0].textContent;
+        price = "N1";//foo01[0].textContent;
         reshio = span[30].textContent + foo01[1].textContent;
         percent = span[29].textContent;
         polarity = percent;
@@ -86,8 +122,8 @@ app.get('/api/v1/list', (req, res) => {
        }
        */
     });
-    stock.push({ Code: '998407.O', Name: 'NIKEI', Price: price, Reshio: reshio, Percent: percent, Polarity: polarity });
-
+   stock.push({ Code: '998407.O', Name: 'NIKEI', Price: price, Reshio: reshio, Percent: percent, Polarity: polarity });
+   //stock.push({ Code: '998407.O', Name: 'NIKEI', Price: price, Reshio: reshio, Percent: percent, Polarity: polarity });
 
 
 
@@ -106,22 +142,22 @@ app.get('/api/v1/list', (req, res) => {
             //console.log(body);
             // データを処理するコードをここに記述
             const dom = new JSDOM(body);
-            var foo01 = dom.window.document.getElementsByClassName('_3rXWJKZF');
+            let foo01 = dom.window.document.getElementsByClassName('_3rXWJKZF');
 
             //var span = dom.window.document.getElementsByTagName('span');
             var h1 = dom.window.document.getElementsByTagName('h1');
 
-            name = h1[1].textContent;
-            price = foo01[0].textContent;
-            reshio = foo01[1].textContent;// + foo01[1].textContent;
-            percent = foo01[2].textContent
-            polarity = percent[i];//span[35].textContent;
+            //name = h1[1].textContent;
+            //price = foo01[0].textContent;
+            //reshio = foo01[1].textContent;// + foo01[1].textContent;
+            //percent = foo01[2].textContent
+            //polarity = percent[i];//span[35].textContent;
             //polarity[i] = polarity[i].substr(0, 1);
         //}
 
     });
-    stock.push({ Name: name, Price: price, Reshio: reshio, Percent: percent, Polarity: '+' });
-    console.log(stock);
+    //stock.push({ Name: name, Price: price, Reshio: reshio, Percent: percent, Polarity: '+' });
+    //console.log(stock);
     //}
 
     i = 1;
@@ -140,11 +176,11 @@ app.get('/api/v1/list', (req, res) => {
             //var span = dom.window.document.getElementsByTagName('span');
             var h2 = dom1.window.document.getElementsByTagName('h1');
 
-            name = h2[1].textContent;
-            price = foo02[0].textContent;
-            reshio = foo02[1].textContent;// + foo01[1].textContent;
-            percent = foo02[2].textContent
-            polarity = percent[i];//span[35].textContent;
+            //name = h2[1].textContent;
+            //price = foo02[0].textContent;
+            //reshio = foo02[1].textContent;// + foo01[1].textContent;
+            //percent = foo02[2].textContent
+            //polarity = percent[i];//span[35].textContent;
             //polarity[i] = polarity[i].substr(0, 1);
         //}
 
@@ -158,7 +194,7 @@ app.get('/api/v1/list', (req, res) => {
 
 
     //console.log(stock.length);
-    //console.log(stock);
+    console.log(stock);
     // JSONを送信する
     //res.json(todoList);
     res.json(stock);

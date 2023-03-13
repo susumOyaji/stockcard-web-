@@ -155,32 +155,33 @@
 
                     //document.write('<img id="carousel__main" src="/img/icon-en-24dp/2x/yen_black_24dp.png">');
 
-                    if (stock[0].Price != stock[0].Reshio) {
-                        dowContainer.innerHTML = stock[0].Price;
-                        dowreshioContainer.innerHTML = stock[0].Reshio + "&nbsp" + stock[0].Percent;
+                    //if (stock[0].Price != stock[0].Reshio) {
+                        dowContainer.innerHTML = stock[2].Price;
+                        console.log(stock[2].Price);
+                        dowreshioContainer.innerHTML = stock[2].Reshio + "&nbsp" + stock[2].Percent;
 
-                        stock[0].Polarity == "+" ? change = "red" : change = "green";
+                        stock[2].Polarity == "+" ? change = "red" : change = "green";
                         document.getElementsByClassName("dow_circle")[0].style.background = change;
                         document.getElementById("dowreshio-container").style.color = change;
 
 
-                        nkContainer.innerHTML = stock[1].Price;
-                        nkreshioContainer.innerHTML = stock[1].Reshio + "&nbsp" + stock[1].Percent;
+                        nkContainer.innerHTML = stock[3].Price;
+                        nkreshioContainer.innerHTML = stock[3].Reshio + "&nbsp" + stock[3].Percent;
 
-                        stock[1].Polarity == "+" ? change = "red" : change = "green";
+                        stock[3].Polarity == "+" ? change = "red" : change = "green";
                         document.getElementsByClassName("circle")[0].style.background = change;
                         document.getElementById("nkreshio-container").style.color = change;
 
 
 
-                    }
+                    //}
 
 
 
 
 
                     const Name = document.querySelector('#Name1');
-                    const ListviewMarket = document.querySelector('#ListviewMarket');
+                    const ListviewMarket = document.querySelector('#ListviewMarket1');
 
                     const Marketprice = document.querySelector('#Market-price');
                     const Profit = document.querySelector('#profit');
@@ -201,7 +202,7 @@
 
                     Benefit.innerHTML = (re - sony[1]).toLocaleString();
                     Evalu.innerHTML = ((re - sony[1]) * sony[2]).toLocaleString();
-                    Name.innerHTML = stock[2].Name;
+                    Name.innerHTML = 'kanda';//stock[2].Name;
                     ListviewMarket.innerHTML = stock[2].Price;
                     Code.innerHTML = sony[0];
                     Previous.innerHTML = stock[2].Reshio;
@@ -216,7 +217,7 @@
                 })
                 .catch((error) => {
                     //alert("エラーが発生しました");
-                    dowContainer.innerHTML = "エラーが発生しました";
+                    //dowContainer.innerHTML = "エラーが発生しました";
                     console.error(`[FetchAPI] ${error}, ${URL}`);
                 });
 
