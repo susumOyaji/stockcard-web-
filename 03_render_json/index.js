@@ -68,46 +68,12 @@ app.get('/api/v1/list', (req, res) => {
 
 
 
-    //const request = require('request');
-
-    //const request = require('request');
-
-    function getResponseBody(url) {
-        return new Promise((resolve, reject) => {
-            request(url, (error, response, body) => {
-                if (error) {
-                    reject(error);
-                } else {
-                    resolve(body);
-                }
-            });
-        });
-    }
-
-    // 例としてGoogleのホームページのHTMLを取得する
-    getResponseBody('https://finance.yahoo.co.jp/quote/%5EDJI')
-        .then((body) => {
-            //console.log(body);
-            const dom = new JSDOM(body);
-            //var foo01 = dom.window.document.getElementsByClassName('_3wVTceYe');
-            var span = dom.window.document.querySelectorAll('.span');
-            percent = span[29].textContent;
-            console.log(percent);
+    
 
 
 
-        })
-        .catch((error) => {
-            console.error(error);
-        });
-
-
-    //const request = require('request');
-    //const cheerio = require('cheerio');
-
-
-    const jsdom = require('jsdom');
-    const { JSDOM } = jsdom;
+    //const jsdom = require('jsdom');
+    //const { JSDOM } = jsdom;
 
     const url = 'https://finance.yahoo.co.jp/quote/%5EDJI';
 
