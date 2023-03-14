@@ -1,6 +1,8 @@
 // expressモジュールを読み込む
 const express = require('express');
 const request = require('request');
+const cheerio = require('cheerio');
+//const request = require('request-promise');
 //const requestpromise = require('request-promise');
 
 
@@ -56,47 +58,77 @@ app.get('/api/v1/list', (req, res) => {
     ];
 
 
-    stock = [{ Code:'^DJI',Name: '^DJI', Price: '10', Reshio: '20', Percent: '30', Polarity: '+' },];
+    //stock = [{ Code: '^DJI', Name: '^DJI', Price: '10', Reshio: '20', Percent: '30', Polarity: '+' },];
 
-    stock.push({ Code:'NIKKEI',Name: 'NIKEI', Price: '100', Reshio: '200', Percent: '300', Polarity: '+' });
-
-
-
-    request(options_dji, (error, response, body) => {
-        if (error) {
-            console.error(error)
-        }
-
-        const dom = new JSDOM(body)
-        var span = dom.window.document.getElementsByTagName('span');
-
-
-        price = "d1";//span[18].textContent;
-        reshio = span[23].textContent;
-        percent = span[28].textContent;
-        polarity = percent;//sapn[29].textContent;
-        //polarity[0] = polarity.substr(0, 1);
-
-        DJI = { Name: '^DJI', Price: price[0], Reshio: reshio[0], Percent: percent[0], Polarity: polarity[0] };
-        // console.log(stockdatas);
-        //resArray.push({ Code: '^DJI', Name: '^DJI', Price: price[0], Reshio: reshio[0], Percent: percent[0], Polarity: polarity[0] });
-
-
-        //arr[0] = ['^DJI', price, reshio, percent];
-        //console.log(arr[0][0])
-
-
-        /*
-        for (var i = 18; i <= 50; i++) {
-            console.log(i);
-            console.log(span[i].textContent);
-            
-        }*/
+    stock.push({ Code: 'NIKKEI', Name: 'NIKEI', Price: '100', Reshio: '200', Percent: '300', Polarity: '+' });
 
 
 
 
+
+
+
+    //const request = require('request');
+
+    //const request = require('request');
+
+    function getResponseBody(url) {
+        return new Promise((resolve, reject) => {
+            request(url, (error, response, body) => {
+                if (error) {
+                    reject(error);
+                } else {
+                    resolve(body);
+                }
+            });
+        });
+    }
+
+    // 例としてGoogleのホームページのHTMLを取得する
+    getResponseBody('https://finance.yahoo.co.jp/quote/%5EDJI')
+        .then((body) => {
+            //console.log(body);
+            const dom = new JSDOM(body);
+            //var foo01 = dom.window.document.getElementsByClassName('_3wVTceYe');
+            var span = dom.window.document.querySelectorAll('.span');
+            percent = span[29].textContent;
+            console.log(percent);
+
+
+
+        })
+        .catch((error) => {
+            console.error(error);
+        });
+
+
+    //const request = require('request');
+    //const cheerio = require('cheerio');
+
+
+    const jsdom = require('jsdom');
+    const { JSDOM } = jsdom;
+
+    const url = 'https://finance.yahoo.co.jp/quote/%5EDJI';
+
+    JSDOM.fromURL(url).then(dom => {
+        const titles = [...dom.window.document.querySelectorAll('span')]
+            .map(element => element.textContent.trim());
+        console.log(titles);
+    }).catch(error => {
+        console.error(error);
     });
+
+
+
+
+
+
+
+
+
+
+
     stock.push({ Code: '^DJI', Name: '^DJI', Price: price, Reshio: reshio, Percent: percent, Polarity: polarity });
 
     request(options_nk, (error, response, body) => {
@@ -122,8 +154,8 @@ app.get('/api/v1/list', (req, res) => {
        }
        */
     });
-   stock.push({ Code: '998407.O', Name: 'NIKEI', Price: price, Reshio: reshio, Percent: percent, Polarity: polarity });
-   //stock.push({ Code: '998407.O', Name: 'NIKEI', Price: price, Reshio: reshio, Percent: percent, Polarity: polarity });
+    stock.push({ Code: '998407.O', Name: 'NIKEI', Price: price, Reshio: reshio, Percent: percent, Polarity: polarity });
+    //stock.push({ Code: '998407.O', Name: 'NIKEI', Price: price, Reshio: reshio, Percent: percent, Polarity: polarity });
 
 
 
@@ -138,21 +170,21 @@ app.get('/api/v1/list', (req, res) => {
         }
 
 
-       // if (!error && response.statusCode == 200) {
-            //console.log(body);
-            // データを処理するコードをここに記述
-            const dom = new JSDOM(body);
-            let foo01 = dom.window.document.getElementsByClassName('_3rXWJKZF');
+        // if (!error && response.statusCode == 200) {
+        //console.log(body);
+        // データを処理するコードをここに記述
+        const dom = new JSDOM(body);
+        let foo01 = dom.window.document.getElementsByClassName('_3rXWJKZF');
 
-            //var span = dom.window.document.getElementsByTagName('span');
-            var h1 = dom.window.document.getElementsByTagName('h1');
+        //var span = dom.window.document.getElementsByTagName('span');
+        var h1 = dom.window.document.getElementsByTagName('h1');
 
-            //name = h1[1].textContent;
-            //price = foo01[0].textContent;
-            //reshio = foo01[1].textContent;// + foo01[1].textContent;
-            //percent = foo01[2].textContent
-            //polarity = percent[i];//span[35].textContent;
-            //polarity[i] = polarity[i].substr(0, 1);
+        //name = h1[1].textContent;
+        //price = foo01[0].textContent;
+        //reshio = foo01[1].textContent;// + foo01[1].textContent;
+        //percent = foo01[2].textContent
+        //polarity = percent[i];//span[35].textContent;
+        //polarity[i] = polarity[i].substr(0, 1);
         //}
 
     });
@@ -168,20 +200,20 @@ app.get('/api/v1/list', (req, res) => {
             console.error(error)
         }
         //if (!error && response.statusCode == 200) {
-            //console.log(body);
-            // データを処理するコードをここに記述
-            const dom1 = new JSDOM(body);
-            var foo02 = dom1.window.document.getElementsByClassName('_3rXWJKZF');
+        //console.log(body);
+        // データを処理するコードをここに記述
+        const dom1 = new JSDOM(body);
+        var foo02 = dom1.window.document.getElementsByClassName('_3rXWJKZF');
 
-            //var span = dom.window.document.getElementsByTagName('span');
-            var h2 = dom1.window.document.getElementsByTagName('h1');
+        //var span = dom.window.document.getElementsByTagName('span');
+        var h2 = dom1.window.document.getElementsByTagName('h1');
 
-            //name = h2[1].textContent;
-            //price = foo02[0].textContent;
-            //reshio = foo02[1].textContent;// + foo01[1].textContent;
-            //percent = foo02[2].textContent
-            //polarity = percent[i];//span[35].textContent;
-            //polarity[i] = polarity[i].substr(0, 1);
+        //name = h2[1].textContent;
+        //price = foo02[0].textContent;
+        //reshio = foo02[1].textContent;// + foo01[1].textContent;
+        //percent = foo02[2].textContent
+        //polarity = percent[i];//span[35].textContent;
+        //polarity[i] = polarity[i].substr(0, 1);
         //}
 
     });
